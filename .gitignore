@@ -1,9 +1,12 @@
 # Configuration locale
-# includes/config.php
-# includes/config-heroku.php
+# backend/includes/config-heroku.php
+backend/includes/config.php
 
 # Données JSON
-data/stats.json
+backend/data/stats.json
+
+# Vendor
+vendor/
 
 # Fichiers système
 .DS_Store
@@ -16,6 +19,3 @@ desktop.ini
 .idea/
 *.swp
 *.swo
-
-# Composer
-vendor/
