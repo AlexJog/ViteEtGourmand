@@ -88,6 +88,7 @@ async function chargerHeader() {
         // Non connecté
         navConnexion.innerHTML = `<a href="/pages/connexion.html">Connexion</a>`;
         mobileConnex.innerHTML = `<a href="/pages/connexion.html" class="mobile-link">Connexion</a>`;
+        navEspace.style.display = 'none';
     }
 
     // Burger menu
