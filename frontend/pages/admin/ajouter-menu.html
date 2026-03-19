@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un menu - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+        <section class="contact-section">
+            <div class="container">
+
+                <div id="zone-messages"></div>
+
+                <div class="contact-header">
+                    <h1>Créer un nouveau menu</h1>
+                    <p>Remplissez tous les champs pour ajouter un menu</p>
+                </div>
+
+                <div class="contact-form-container">
+                    <form id="form-ajouter-menu" class="contact-form" enctype="multipart/form-data">
+
+                        <input type="hidden" name="action" value="ajouter">
+
+                        <div class="form-group">
+                            <label for="nom">Nom du menu *</label>
+                            <input type="text" id="nom" name="nom" placeholder="Ex: Menu Noël Traditionnel" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description *</label>
+                            <textarea id="description" name="description" rows="4" placeholder="Description du menu..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Service *</label>
+                            <select id="service" name="service" required>
+                                <option value="">-- Sélectionnez --</option>
+                                <option value="Petit-déjeuner">Petit-déjeuner</option>
+                                <option value="Déjeuner">Déjeuner</option>
+                                <option value="Dîner">Dîner</option>
+                                <option value="Cocktail">Cocktail</option>
+                                <option value="Buffet">Buffet</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="regime_id">Régime *</label>
+                                <select id="regime_id" name="regime_id" required>
+                                    <option value="">-- Sélectionnez --</option>
+                                    <!-- Rempli par JS -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="theme_id">Thème *</label>
+                                <select id="theme_id" name="theme_id" required>
+                                    <option value="">-- Sélectionnez --</option>
+                                    <!-- Rempli par JS -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="prix_par_personne">Prix par personne (€) *</label>
+                                <input type="number" id="prix_par_personne" name="prix_par_personne" step="0.01" min="0" placeholder="25.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="personne_minimum">Nombre minimum de personnes *</label>
+                                <input type="number" id="personne_minimum" name="personne_minimum" min="1" placeholder="10" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantite_restante">Stock disponible *</label>
+                            <input type="number" id="quantite_restante" name="quantite_restante" min="0" placeholder="50" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image">Image du menu *</label>
+                            <input type="file" id="image" name="image" accept="image/jpeg,image/jpg,image/png" required>
+                            <small class="form-hint">Formats acceptés : JPG, JPEG, PNG (max 5 Mo)</small>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-contact">✅ Créer le menu</button>
+                            <a href="gestion-menus.html" class="btn-secondary">❌ Annuler</a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/admin/ajouter-menu.js"></script>
+</body>
+</html>

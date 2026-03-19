@@ -1,0 +1,1 @@
+const BASE_URL = 'https://vite-et-gourmand-alex-a85135b73360.herokuapp.com';

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon profil - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+        <section class="contact-section">
+            <div class="container">
+
+                <div id="zone-messages"></div>
+
+                <div class="contact-header">
+                    <h1>Mon profil</h1>
+                    <p>Modifiez vos informations personnelles</p>
+                </div>
+
+                <div class="contact-form-container">
+                    <form id="form-profil" class="contact-form">
+
+                        <h3 class="form-section-titre">Informations personnelles</h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nom">Nom *</label>
+                                <input type="text" id="nom" name="nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="prenom">Prénom *</label>
+                                <input type="text" id="prenom" name="prenom" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telephone">Téléphone *</label>
+                            <input type="tel" id="telephone" name="telephone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adresse_postale">Adresse postale *</label>
+                            <input type="text" id="adresse_postale" name="adresse_postale" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="code_postal">Code postal *</label>
+                                <input type="text" id="code_postal" name="code_postal" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ville">Ville *</label>
+                                <input type="text" id="ville" name="ville" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pays">Pays *</label>
+                            <input type="text" id="pays" name="pays" required>
+                        </div>
+
+                        <hr class="form-separator">
+
+                        <h3 class="form-section-titre">Changer mon mot de passe</h3>
+                        <p class="form-note">Laissez vide si vous ne souhaitez pas modifier votre mot de passe</p>
+
+                        <div class="form-group">
+                            <label for="password_actuel">Mot de passe actuel</label>
+                            <input type="password" id="password_actuel" name="password_actuel" placeholder="Requis pour changer de mot de passe">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nouveau_password">Nouveau mot de passe</label>
+                            <input type="password" id="nouveau_password" name="nouveau_password" placeholder="10 caractères minimum">
+                            <small class="form-hint">10 caractères minimum : 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial (@#$%&*!?.,;:_-)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nouveau_password_confirm">Confirmer le nouveau mot de passe</label>
+                            <input type="password" id="nouveau_password_confirm" name="nouveau_password_confirm" placeholder="Retapez le nouveau mot de passe">
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-contact">✅ Enregistrer les modifications</button>
+                            <a href="dashboard.html" class="btn-secondary">❌ Annuler</a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/utilisateur/profil.js"></script>
+</body>
+</html>

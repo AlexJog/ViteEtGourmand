@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Espace Admin - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+        <section class="contact-section">
+            <div class="container">
+
+                <div class="contact-header">
+                    <h1>Espace Administrateur</h1>
+                    <p>Bienvenue <span id="user-prenom"></span> ! 👑</p>
+                </div>
+
+                <div class="dashboard-content">
+
+                    <!-- Statistiques -->
+                    <div class="admin-stats-grid">
+                        <div class="dashboard-card admin-stat-card">
+                            <h3>📋 Menus</h3>
+                            <p class="admin-stat-number admin-stat-menus" id="nb-menus"></p>
+                        </div>
+                        <div class="dashboard-card admin-stat-card">
+                            <h3>📦 Commandes</h3>
+                            <p class="admin-stat-number admin-stat-commandes" id="nb-commandes"></p>
+                        </div>
+                        <div class="dashboard-card admin-stat-card">
+                            <h3>👥 Utilisateurs</h3>
+                            <p class="admin-stat-number admin-stat-users" id="nb-users"></p>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="dashboard-actions">
+
+                        <div class="dashboard-card">
+                            <h2>🍽️ Gestion des Menus</h2>
+                            <p>Créer, modifier et supprimer les menus</p>
+                            <a href="gestion-menus.html" class="btn-hero">Gérer les menus</a>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <h2>📦 Gestion des Commandes</h2>
+                            <p>Valider, suivre et gérer toutes les commandes</p>
+                            <a href="../employe/gestion-commandes.html" class="btn-hero">Gérer les commandes</a>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <h2>⭐ Gestion des Avis</h2>
+                            <p>Valider ou refuser les avis clients</p>
+                            <p id="avis-attente"></p>
+                            <a href="../employe/gestion-avis.html" class="btn-hero">Gérer les avis</a>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <h2>👥 Gestion des Employés</h2>
+                            <p>Voir et gérer les comptes employés (<span id="nb-employes"></span> employés)</p>
+                            <a href="gestion-employes.html" class="btn-hero">Gérer les employés</a>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <h2>📈 Statistiques</h2>
+                            <p>Consulter les statistiques de ventes et performances</p>
+                            <a href="statistiques.html" class="btn-hero">Voir les statistiques</a>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <h2>➕ Créer un Employé</h2>
+                            <p>Ajouter un nouveau compte employé</p>
+                            <a href="creer-employe.html" class="btn-secondary">Créer un employé</a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/admin/dashboard.js"></script>
+</body>
+</html>

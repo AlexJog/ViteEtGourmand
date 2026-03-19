@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistiques - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+        <section class="contact-section">
+            <div class="container">
+
+                <div id="zone-messages"></div>
+
+                <div class="contact-header">
+                    <h1>📊 Statistiques & Chiffre d'affaires</h1>
+                    <p>Données provenant de la base JSON (NoSQL)</p>
+                </div>
+
+                <!-- Bouton Synchroniser -->
+                <div class="btn-sync-container">
+                    <a href="#" id="btnSync" class="btn-hero">🔄 Synchroniser les données</a>
+                    <p class="btn-sync-info"><span id="nb-total"></span> commande(s) dans la base JSON</p>
+                </div>
+
+                <!-- Filtres -->
+                <div class="commande-carte stats-filtres-carte">
+                    <h3 class="stats-filtres-titre">🔍 Filtrer les statistiques</h3>
+                    <form id="form-filtres">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="menu_id">Menu</label>
+                                <select id="menu_id" name="menu_id">
+                                    <option value="">Tous les menus</option>
+                                    <!-- Rempli par JS -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date_debut">Date de début</label>
+                                <input type="date" id="date_debut" name="date_debut">
+                            </div>
+                            <div class="form-group">
+                                <label for="date_fin">Date de fin</label>
+                                <input type="date" id="date_fin" name="date_fin">
+                            </div>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-contact">🔎 Filtrer</button>
+                            <a href="statistiques.html" class="btn-secondary">🔄 Réinitialiser</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Stats -->
+                <div id="zone-stats"></div>
+
+                <!-- Graphique -->
+                <div id="zone-graphique" style="display:none;" class="commande-carte stats-graphique-carte">
+                    <h3 class="stats-graphique-titre">📈 Graphique : Commandes par menu</h3>
+                    <canvas id="chartCommandes" class="stats-graphique-canvas"></canvas>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Popup synchronisation -->
+        <div class="popup-overlay" id="popupSync">
+            <div class="popup-box">
+                <h3>🔄 Synchroniser les données ?</h3>
+                <p>Les données MySQL seront copiées vers la base JSON (NoSQL)</p>
+                <div class="form-buttons">
+                    <button class="btn-contact" id="btnConfirmSync">✅ Oui, synchroniser</button>
+                    <button class="btn-secondary" id="btnCancelSync">❌ Annuler</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/admin/statistiques.js"></script>
+</body>
+</html>

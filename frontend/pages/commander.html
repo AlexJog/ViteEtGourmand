@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Commander - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+        <section class="contact-section">
+            <div class="container">
+
+                <div class="contact-header">
+                    <h1>Commander : <span id="menu-nom"></span></h1>
+                    <p>Complétez les informations ci-dessous pour finaliser votre commande</p>
+                </div>
+
+                <div id="zone-messages"></div>
+
+                <div class="contact-grid">
+
+                    <!-- FORMULAIRE -->
+                    <div class="contact-form-container">
+                        <form id="form-commande" class="contact-form">
+
+                            <input type="hidden" id="menu_id" name="menu_id" value="">
+
+                            <div class="form-group">
+                                <label for="date_prestation">Date de prestation *</label>
+                                <input type="date" id="date_prestation" name="date_prestation" required>
+                                <small class="form-hint">Minimum 7 jours avant la prestation</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="heure_livraison">Heure de livraison souhaitée *</label>
+                                <input type="time" id="heure_livraison" name="heure_livraison" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nombre_personnes">Nombre de personnes *</label>
+                                <input type="number" id="nombre_personnes" name="nombre_personnes" required>
+                                <small id="hint-personnes" class="form-hint"></small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="adresse_livraison">Adresse de livraison *</label>
+                                <input type="text" id="adresse_livraison" name="adresse_livraison" placeholder="Rue, numéro" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="code_postal">Code postal *</label>
+                                    <input type="text" id="code_postal" name="code_postal" placeholder="33000" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ville">Ville *</label>
+                                    <input type="text" id="ville" name="ville" value="Bordeaux" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="hors_bordeaux">
+                                    <input type="checkbox" id="hors_bordeaux" name="hors_bordeaux" value="1">
+                                    La livraison est hors Bordeaux (+ 5€ + 0,59€/km)
+                                </label>
+                            </div>
+
+                            <div class="form-group div-kilometres-hidden" id="div_kilometres">
+                                <label for="kilometres">Distance depuis Bordeaux (en km) *</label>
+                                <input type="number" id="kilometres" name="kilometres" min="0" step="0.1" value="0" placeholder="Ex: 25">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="commentaire">Commentaire / Instructions particulières</label>
+                                <textarea id="commentaire" name="commentaire" rows="4" placeholder="Informations complémentaires, allergies non mentionnées..."></textarea>
+                            </div>
+
+                            <!-- Calcul du prix -->
+                            <div class="prix-recapitulatif">
+                                <p>Prix par personne : <span id="prix-par-personne" class="prix-highlight"></span></p>
+                                <p>Prix menu : <span id="prix_menu" class="prix-highlight"></span></p>
+                                <p class="ligne-reduction-hidden prix-ligne-reduction" id="ligne_reduction">
+                                    Réduction 10% : <span id="montant_reduction">0,00€</span>
+                                </p>
+                                <p>Frais de livraison : <span id="frais_livraison">0,00€</span></p>
+                                <hr>
+                                <p class="prix-total-final">TOTAL : <span id="prix_total"></span></p>
+                            </div>
+
+                            <button type="submit" class="btn-contact">Valider ma commande</button>
+
+                        </form>
+                    </div>
+
+                    <!-- RÉCAPITULATIF -->
+                    <div class="contact-info">
+                        <div class="info-card">
+                            <h3>📋 Récapitulatif</h3>
+                            <p><strong>Menu :</strong> <span id="recap-nom"></span></p>
+                            <p><strong>Service :</strong> <span id="recap-service"></span></p>
+                            <p><strong>Régime :</strong> <span id="recap-regime"></span></p>
+                        </div>
+                        <div class="info-card">
+                            <h3>⚠️ Conditions</h3>
+                            <p style="font-size: 14px;">• Commande minimum 7 jours avant</p>
+                            <p style="font-size: 14px;">• Livraison à Bordeaux et périphérie</p>
+                            <p style="font-size: 14px;">• Stock restant : <span id="recap-stock"></span> commandes</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/commander.js"></script>
+</body>
+</html>

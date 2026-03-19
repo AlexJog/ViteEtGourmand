@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier un menu - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+        <section class="contact-section">
+            <div class="container">
+
+                <div id="zone-messages"></div>
+
+                <div class="contact-header">
+                    <h1>Modifier le menu</h1>
+                    <p>Modifiez les informations du menu "<span id="menu-nom"></span>"</p>
+                </div>
+
+                <div class="contact-form-container">
+                    <form id="form-modifier-menu" class="contact-form" enctype="multipart/form-data">
+
+                        <input type="hidden" name="action" value="modifier">
+                        <input type="hidden" id="menu_id" name="menu_id" value="">
+
+                        <div class="form-group">
+                            <label for="nom">Nom du menu *</label>
+                            <input type="text" id="nom" name="nom" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description *</label>
+                            <textarea id="description" name="description" rows="4" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Service *</label>
+                            <select id="service" name="service" required>
+                                <option value="">-- Sélectionnez --</option>
+                                <option value="Petit-déjeuner">Petit-déjeuner</option>
+                                <option value="Déjeuner">Déjeuner</option>
+                                <option value="Dîner">Dîner</option>
+                                <option value="Cocktail">Cocktail</option>
+                                <option value="Buffet">Buffet</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="regime_id">Régime *</label>
+                                <select id="regime_id" name="regime_id" required>
+                                    <option value="">-- Sélectionnez --</option>
+                                    <!-- Rempli par JS -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="theme_id">Thème *</label>
+                                <select id="theme_id" name="theme_id" required>
+                                    <option value="">-- Sélectionnez --</option>
+                                    <!-- Rempli par JS -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="prix_par_personne">Prix par personne (€) *</label>
+                                <input type="number" id="prix_par_personne" name="prix_par_personne" step="0.01" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="personne_minimum">Nombre minimum de personnes *</label>
+                                <input type="number" id="personne_minimum" name="personne_minimum" min="1" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantite_restante">Stock disponible *</label>
+                            <input type="number" id="quantite_restante" name="quantite_restante" min="0" required>
+                        </div>
+
+                        <!-- Image actuelle -->
+                        <div class="form-group" id="zone-image-actuelle" style="display:none;">
+                            <label>Image actuelle :</label>
+                            <div class="image-actuelle-container">
+                                <img id="image-actuelle" src="" alt="Image actuelle" class="image-actuelle-preview">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image">Changer l'image (optionnel)</label>
+                            <input type="file" id="image" name="image" accept="image/jpeg,image/jpg,image/png">
+                            <small class="form-hint">Laissez vide pour conserver l'image actuelle. Formats acceptés : JPG, JPEG, PNG (max 10 Mo)</small>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-contact">✅ Enregistrer les modifications</button>
+                            <a href="gestion-menus.html" class="btn-secondary">❌ Annuler</a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/admin/modifier-menu.js"></script>
+</body>
+</html>

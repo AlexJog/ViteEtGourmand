@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+
+        <div id="zone-messages"></div>
+
+        <section class="inscription-section">
+            <div class="container">
+                <div class="inscription-box">
+
+                    <h1>Créer un compte</h1>
+                    <p class="inscription-subtitle">Rejoignez-nous pour commander facilement</p>
+
+                    <form id="form-inscription" class="inscription-form">
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nom">Nom *</label>
+                                <input type="text" id="nom" name="nom" placeholder="Dupont" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="prenom">Prénom *</label>
+                                <input type="text" id="prenom" name="prenom" placeholder="Jean" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Adresse email *</label>
+                            <input type="email" id="email" name="email" placeholder="exemple@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telephone">Téléphone *</label>
+                            <input type="tel" id="telephone" name="telephone" placeholder="06 12 34 56 78" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adresse">Adresse postale *</label>
+                            <input type="text" id="adresse" name="adresse" placeholder="12 rue de la République" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="code_postal">Code postal *</label>
+                                <input type="text" id="code_postal" name="code_postal" placeholder="33000" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ville">Ville *</label>
+                                <input type="text" id="ville" name="ville" placeholder="Bordeaux" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Mot de passe *</label>
+                            <input type="password" id="password" name="password" placeholder="••••••••" required>
+                            <small class="form-hint">10 caractères minimum : 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial (@#$%&*!?.,;:_-)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_confirm">Confirmer le mot de passe *</label>
+                            <input type="password" id="password_confirm" name="password_confirm" placeholder="••••••••" minlength="10" required>
+                        </div>
+
+                        <button type="submit" class="btn-inscription">Créer mon compte</button>
+
+                    </form>
+
+                    <div class="connexion-link">
+                        <p>Vous avez déjà un compte ?
+                            <a href="connexion.html">Se connecter</a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/inscription.js"></script>
+</body>
+</html>

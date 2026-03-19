@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Nos Menus - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <!-- Le header sera inclus via JS (comme tu fais dans Quai Antique) -->
+    <div id="header"></div>
+
+    <main>
+
+        <!-- Section Titre -->
+        <section class="menus-header">
+            <div class="div-menus">
+                <h1>Nos Menus</h1>
+                <p>Découvrez notre sélection de menus pour tous vos événements</p>
+            </div>
+        </section>
+
+        <!-- Section Filtres -->
+        <section class="filtres">
+            <div class="div-menus">
+                <form class="filtres-form" id="form-filtres">
+
+                    <div class="div-filtre">
+                        <label for="prixMax">Prix max :</label>
+                        <input type="number" id="prixMax" name="prixMax" placeholder="Ex: 50€" min="0">
+                    </div>
+
+                    <div class="div-filtre">
+                        <label for="regime">Régime :</label>
+                        <select id="regime" name="regime">
+                            <option value="">Tous</option>
+                            <option value="classique">Classique</option>
+                            <option value="vegetarien">Végétarien</option>
+                            <option value="vegan">Vegan</option>
+                        </select>
+                    </div>
+
+                    <div class="div-filtre">
+                        <label for="theme">Thème :</label>
+                        <select id="theme" name="theme">
+                            <option value="">Tous</option>
+                            <option value="noel">Noël</option>
+                            <option value="paques">Pâques</option>
+                            <option value="classique">Classique</option>
+                            <option value="evenement">Événement</option>
+                        </select>
+                    </div>
+
+                    <div class="div-filtre">
+                        <label for="nbPersonnes">Nb pers :</label>
+                        <input type="number" id="nbPersonnes" name="nbPersonnes" placeholder="Ex: 10" min="1">
+                    </div>
+
+                    <button type="submit" class="btn-rechercher">Rechercher</button>
+                </form>
+
+                <a href="#" class="lien-reinitialiser" id="btn-reinitialiser" style="display:none">
+                    ✕ Réinitialiser les filtres
+                </a>
+            </div>
+        </section>
+
+        <!-- Section Grille -->
+        <section class="grille-menus">
+            <div class="div-menus" id="grille-menus">
+                <!-- Les menus s'affichent ici via JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/menus.js"></script>
+</body>
+</html>

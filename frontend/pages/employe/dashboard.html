@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Espace Employé - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+        <section class="contact-section">
+            <div class="container">
+
+                <div class="contact-header">
+                    <h1>Espace Employé</h1>
+                    <p>Bienvenue <span id="user-prenom"></span> !</p>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="dashboard-card">
+                        <h2>📦 Gestion des Commandes</h2>
+                        <p>
+                            <strong id="nb-attente" class="dashboard-stat-highlight"></strong>
+                            commande<span id="pluriel"></span> en attente
+                        </p>
+                        <a href="gestion-commandes.html" class="btn-hero">Gérer les commandes</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/employe/dashboard.js"></script>
+</body>
+</html>

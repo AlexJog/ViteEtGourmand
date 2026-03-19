@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Nouveau mot de passe - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+        <section class="inscription-section">
+            <div class="container">
+
+                <div id="zone-messages"></div>
+
+                <div class="inscription-box">
+
+                    <h1>Nouveau mot de passe</h1>
+                    <p class="inscription-subtitle">Bonjour <span id="user-prenom"></span>, définissez votre nouveau mot de passe</p>
+
+                    <form id="form-nouveau-mdp" class="inscription-form">
+
+                        <input type="hidden" id="token" name="token" value="">
+
+                        <div class="form-group">
+                            <label for="password">Nouveau mot de passe *</label>
+                            <input type="password" id="password" name="password" required>
+                            <small class="form-hint">10 caractères minimum : 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial (@#$%&*!?.,;:_-)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_confirm">Confirmer le mot de passe *</label>
+                            <input type="password" id="password_confirm" name="password_confirm" required>
+                        </div>
+
+                        <button type="submit" class="btn-inscription">Réinitialiser mon mot de passe</button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/nouveau-mot-de-passe.js"></script>
+</body>
+</html>

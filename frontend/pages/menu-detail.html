@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail Menu - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+
+        <!-- Image -->
+        <section class="menu-detail-hero">
+            <img id="menu-image" src="" alt="">
+        </section>
+
+        <!-- Titre -->
+        <section class="menu-detail-titre">
+            <div class="container">
+                <h1 id="menu-nom"></h1>
+            </div> :
+        </section>
+
+        <!-- Détails -->
+        <section class="menu-detail-section">
+            <div class="container">
+                <div class="detail-grid">
+
+                    <!-- Gauche -->
+                    <div class="detail-gauche">
+                        <div class="detail-section">
+                            <p id="menu-description" class="menu-description"></p>
+                        </div>
+                        <div class="detail-section">
+                            <h2 class="section-soustitre">Service proposé</h2>
+                            <p id="menu-service"></p>
+                        </div>
+                        <div class="detail-section">
+                            <h2 class="section-soustitre">Composition du menu</h2>
+                            <ul id="menu-plats" class="liste-menu"></ul>
+                        </div>
+                        <div class="detail-section">
+                            <h3 class="allergenes">⚠️ Allergènes ⚠️</h3>
+                            <ul id="menu-allergenes" class="liste-allergenes"></ul>
+                        </div>
+                    </div>
+
+                    <!-- Droite -->
+                    <div class="detail-droite">
+                        <div class="detail-carte">
+                            <p id="menu-prix" class="detail-prix"></p>
+                            <p id="menu-personnes" class="detail-info"></p>
+                            <p id="menu-theme" class="detail-badge"></p>
+                            <p id="menu-regime" class="detail-badge"></p>
+                            <p id="menu-stock" class="detail-stock"></p>
+                            <a id="btn-commander" href="#" class="btn-commander">Commander ce menu</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Conditions -->
+        <section class="conditions">
+            <div class="container">
+                <div class="conditions-box">
+                    <h3 class="conditions-titre">⚠️ CONDITIONS IMPORTANTES</h3>
+                    <ul class="conditions-liste">
+                        <li>Commande à effectuer au minimum 7 jours avant la prestation</li>
+                        <li>Conservation au frais recommandée</li>
+                        <li>Livraison uniquement à Bordeaux et périphérie</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/menu-detail.js"></script>
+</body>
+</html>

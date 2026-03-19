@@ -1,0 +1,21 @@
+# Configuration locale
+# includes/config.php
+# includes/config-heroku.php
+
+# Données JSON
+data/stats.json
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Composer
+vendor/

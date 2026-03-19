@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon espace - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+        <section class="contact-section">
+            <div class="container">
+
+                <div class="contact-header">
+                    <h1>Mon espace personnel</h1>
+                    <p>Bienvenue <span id="user-prenom"></span> !</p>
+                </div>
+
+                <div class="dashboard-content">
+
+                    <div class="dashboard-card">
+                        <h2>📋 Mes Commandes</h2>
+                        <p>Vous avez <strong id="nb-commandes"></strong> commande<span id="pluriel"></span></p>
+                        <a href="mes-commandes.html" class="btn-hero">Voir mes commandes</a>
+                    </div>
+
+                    <div class="dashboard-actions">
+                        <a href="profil.html" class="btn-secondary">✏️ Modifier mon profil</a>
+                        <a href="../menus.html" class="btn-secondary">🍽️ Découvrir nos menus</a>
+                        <a href="../contact.html" class="btn-secondary">📧 Nous contacter</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/utilisateur/dashboard.js"></script>
+</body>
+</html>

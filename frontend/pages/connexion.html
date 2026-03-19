@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+
+        <!-- Zone messages (succès / erreurs) -->
+        <div id="zone-messages"></div>
+
+        <!-- Section Connexion -->
+        <section class="connexion-section">
+            <div class="container">
+                <div class="connexion-box">
+
+                    <h1>Connexion</h1>
+                    <p class="connexion-subtitle">Accédez à votre espace personnel</p>
+
+                    <form id="form-connexion" class="connexion-form">
+
+                        <div class="form-group">
+                            <label for="email">Adresse email</label>
+                            <input type="email" id="email" name="email" placeholder="exemple@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Mot de passe</label>
+                            <input type="password" id="password" name="password" placeholder="••••••••" required>
+                        </div>
+
+                        <div class="form-links">
+                            <a href="mot-de-passe-oublie.html" class="forgot-password">Mot de passe oublié ?</a>
+                        </div>
+
+                        <button type="submit" class="btn-inscription">Se connecter</button>
+
+                    </form>
+
+                    <div class="inscription-link">
+                        <p>Vous n'avez pas encore de compte ?
+                            <a href="inscription.html">Créer un compte</a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/connexion.js"></script>
+</body>
+</html>

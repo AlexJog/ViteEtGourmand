@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+
+        <div id="zone-messages"></div>
+
+        <section class="contact-section">
+            <div class="container">
+
+                <div class="contact-header">
+                    <h1>Contactez-nous</h1>
+                    <p>Une question ? Un projet d'événement ? N'hésitez pas à nous écrire !</p>
+                </div>
+
+                <div class="contact-grid">
+
+                    <!-- FORMULAIRE -->
+                    <div class="contact-form-container">
+                        <form id="form-contact" class="contact-form">
+
+                            <div class="form-group">
+                                <label for="email">Votre email *</label>
+                                <input type="email" id="email" name="email" placeholder="exemple@email.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="titre">Titre du message *</label>
+                                <input type="text" id="titre" name="titre" placeholder="Objet de votre message" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Votre message *</label>
+                                <textarea id="message" name="message" rows="6" placeholder="Décrivez votre demande..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-contact">Envoyer le message</button>
+
+                        </form>
+                    </div>
+
+                    <!-- INFOS CONTACT -->
+                    <div class="contact-info">
+                        <div class="info-card">
+                            <h3>📧 Email</h3>
+                            <p>contact@vitegourmand.fr</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>📞 Téléphone</h3>
+                            <p>05 56 00 00 00</p>
+                            <small>Lundi - Vendredi : 9h - 18h</small>
+                            <small>Samedi : 10h - 16h</small>
+                        </div>
+                        <div class="info-card">
+                            <h3>📍 Adresse</h3>
+                            <p>Bordeaux, France</p>
+                            <small>Livraison à Bordeaux et périphérie</small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/contact.js"></script>
+</body>
+</html>

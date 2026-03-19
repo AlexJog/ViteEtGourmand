@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Laisser un avis - Vite & Gourmand</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+        <section class="contact-section">
+            <div class="container">
+
+                <div id="zone-messages"></div>
+
+                <div class="contact-header">
+                    <h1>Laisser un avis</h1>
+                    <p>Partagez votre expérience pour la commande : <span id="menu-nom"></span></p>
+                </div>
+
+                <div class="contact-form-container">
+                    <form id="form-avis" class="contact-form">
+
+                        <input type="hidden" id="commande_id" name="commande_id" value="">
+
+                        <div class="form-group">
+                            <label>Votre note *</label>
+                            <div class="etoiles-container">
+                                <input type="radio" name="note" value="1" id="note1" required>
+                                <label for="note1" class="star" data-value="1">★</label>
+
+                                <input type="radio" name="note" value="2" id="note2">
+                                <label for="note2" class="star" data-value="2">★</label>
+
+                                <input type="radio" name="note" value="3" id="note3">
+                                <label for="note3" class="star" data-value="3">★</label>
+
+                                <input type="radio" name="note" value="4" id="note4">
+                                <label for="note4" class="star" data-value="4">★</label>
+
+                                <input type="radio" name="note" value="5" id="note5">
+                                <label for="note5" class="star" data-value="5">★</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="commentaire">Votre commentaire *</label>
+                            <textarea id="commentaire" name="commentaire" rows="6" required placeholder="Partagez votre expérience..."></textarea>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-contact">✅ Envoyer mon avis</button>
+                            <a href="mes-commandes.html" class="btn-secondary">❌ Annuler</a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/etoiles.js"></script>
+    <script src="../../assets/js/utilisateur/laisser-avis.js"></script>
+</body>
+</html>

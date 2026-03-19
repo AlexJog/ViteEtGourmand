@@ -1,0 +1,31 @@
+<header class="site-header">
+    <nav class="nav-header">
+        <a href="/frontend/pages/index.html" class="logo">Vite & Gourmand</a>
+        <ul class="nav-lien">
+            <li><a href="/frontend/pages/index.html">Accueil</a></li>
+            <li><a href="/frontend/pages/menus.html">Menus</a></li>
+            <li id="nav-espace"></li>
+            <li id="nav-connexion"></li>
+            <li><a href="/frontend/pages/contact.html">Contact</a></li>
+        </ul>
+        <button class="burger-menu" id="burgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Sous-menu selon rôle -->
+    <nav class="sub-nav" id="sub-nav" style="display:none;">
+        <ul id="sub-nav-liens"></ul>
+    </nav>
+</header>
+
+<!-- Menu mobile -->
+<div class="mobile-menu" id="mobileMenu">
+    <div id="mobile-user-menu"></div>
+    <a href="/frontend/pages/index.html" class="mobile-link">Accueil</a>
+    <a href="/frontend/pages/menus.html" class="mobile-link">Menus</a>
+    <a href="/frontend/pages/contact.html" class="mobile-link">Contact</a>
+    <div id="mobile-connexion"></div>
+</div>
