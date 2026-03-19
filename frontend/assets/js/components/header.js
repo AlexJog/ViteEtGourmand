@@ -1,6 +1,6 @@
 async function chargerHeader() {
     // Charger le HTML du header
-    const reponse = await fetch(`${BASE_URL}/frontend/components/header.html`);
+    const reponse = await fetch(`/components/header.html`);
     const html    = await reponse.text();
     document.getElementById('header').innerHTML = html;
 
