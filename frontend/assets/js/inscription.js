@@ -1,44 +1,36 @@
-const URL_API = `${BASE_URL}/api/traitement-inscription.php`;
+const URL_CONNEXION = `${BASE_URL}/api/traitement-connexion.php`;
 
 const zoneMessages = document.getElementById('zone-messages');
-const form         = document.getElementById('form-inscription');
+const form         = document.getElementById('form-connexion');
 
 form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('nom',              document.getElementById('nom').value);
-    formData.append('prenom',           document.getElementById('prenom').value);
-    formData.append('email',            document.getElementById('email').value);
-    formData.append('telephone',        document.getElementById('telephone').value);
-    formData.append('adresse',          document.getElementById('adresse').value);
-    formData.append('code_postal',      document.getElementById('code_postal').value);
-    formData.append('ville',            document.getElementById('ville').value);
-    formData.append('password',         document.getElementById('password').value);
-    formData.append('password_confirm', document.getElementById('password_confirm').value);
+    formData.append('email',    document.getElementById('email').value);
+    formData.append('password', document.getElementById('password').value);
 
-    const reponse = await fetch(URL_API, { method: 'POST', body: formData });
-    const data    = await reponse.json();
+    const reponse = await fetch(URL_CONNEXION, {
+        method: 'POST',
+        body: formData
+    });
+
+    const data = await reponse.json();
 
     if (data.erreurs) {
         zoneMessages.innerHTML = `
             <div class="alert alert-error">
                 ${data.erreurs.map(e => `<p>• ${e}</p>`).join('')}
             </div>`;
-
-        // Repré-remplir les champs si le back renvoie form_data
-        if (data.form_data) {
-            Object.keys(data.form_data).forEach(champ => {
-                const input = document.getElementById(champ);
-                if (input) input.value = data.form_data[champ];
-            });
-        }
-
-        // Remonter en haut pour voir les erreurs
-        window.scrollTo(0, 0);
     }
 
     if (data.succes) {
-        window.location.href = data.redirect;
+        // Stocker le token et les infos utilisateur
+        localStorage.setItem('token',  data.token);
+        localStorage.setItem('role',   data.role);
+        localStorage.setItem('prenom', data.prenom);
+
+        // Rediriger
+        window.location.href = '/pages/' + data.redirect;
     }
 });

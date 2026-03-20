@@ -4,16 +4,15 @@ require_once __DIR__ . '/../includes/config.php';
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-// Détruire toutes les variables de session
-$_SESSION = array();
+// Récupérer le token depuis le header
+$headers = getallheaders();
+$token   = $headers['X-AUTH-TOKEN'] ?? null;
 
-// Détruire le cookie de session
-if (isset($_COOKIE[session_name()])) {
-    setcookie(session_name(), '', time() - 3600, '/');
+// Effacer le token en BDD
+if ($token) {
+    $stmt = $pdo->prepare("UPDATE utilisateur SET api_token = NULL WHERE api_token = :token");
+    $stmt->execute(['token' => $token]);
 }
-
-// Détruire la session
-session_destroy();
 
 echo json_encode(['succes' => true]);
 ?>
