@@ -1,10 +1,9 @@
-const URL_API      = `${BASE_URL}/api/admin/gestion-menus.php`;
+const URL_API       = `${BASE_URL}/api/admin/gestion-menus.php`;
 const URL_SUPPRIMER = `${BASE_URL}/api/admin/supprimer-menu.php`;
 
 const zoneMessages = document.getElementById('zone-messages');
 const listeMenus   = document.getElementById('liste-menus');
 
-// Popup suppression
 function afficherPopup(menu_id) {
     document.getElementById('popupSuppression').style.display = 'flex';
     document.getElementById('lienSuppression').onclick = function(e) {
@@ -21,7 +20,7 @@ async function supprimerMenu(menu_id) {
     const formData = new FormData();
     formData.append('menu_id', menu_id);
 
-    const reponse = await fetch(URL_SUPPRIMER, { method: 'POST', body: formData });
+    const reponse = await fetchAvecToken(URL_SUPPRIMER, { method: 'POST', body: formData });
     const data    = await reponse.json();
 
     fermerPopup();
@@ -66,7 +65,7 @@ function genererCarteMenu(menu) {
 }
 
 async function chargerMenus() {
-    const reponse = await fetch(URL_API);
+    const reponse = await fetchAvecToken(URL_API);
     const data    = await reponse.json();
 
     if (data.erreur === 'non_connecte') {
@@ -77,13 +76,6 @@ async function chargerMenus() {
     if (data.erreur === 'non_autorise') {
         window.location.href = '../index.html';
         return;
-    }
-
-    if (data.messages.succes) {
-        zoneMessages.innerHTML = `<div class="alert alert-success"><p>${data.messages.succes}</p></div>`;
-    }
-    if (data.messages.erreur) {
-        zoneMessages.innerHTML = `<div class="alert alert-error"><p>${data.messages.erreur}</p></div>`;
     }
 
     if (data.menus.length === 0) {

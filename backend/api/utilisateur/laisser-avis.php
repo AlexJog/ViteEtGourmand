@@ -1,28 +1,25 @@
 <?php
 require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/auth.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['erreur' => 'non_connecte']);
-    exit;
-}
+// Vérifier le token
+$user_connecte  = verifierToken($pdo);
+$utilisateur_id = $user_connecte['utilisateur_id'];
 
-if ($_SESSION['user_role'] !== 'utilisateur') {
+if ($user_connecte['role_nom'] !== 'utilisateur') {
     echo json_encode(['erreur' => 'non_autorise']);
     exit;
 }
 
-$commande_id    = (int)($_GET['commande_id'] ?? 0);
-$utilisateur_id = $_SESSION['user_id'];
+$commande_id = (int)($_GET['commande_id'] ?? 0);
 
 if (empty($commande_id)) {
     echo json_encode(['erreur' => 'redirect_commandes']);
     exit;
 }
 
-// Vérifier que la commande appartient à l'utilisateur et est terminée
 $stmt = $pdo->prepare("SELECT c.*, m.nom AS menu_nom 
                         FROM commande c
                         INNER JOIN menu m ON c.menu_id = m.menu_id
@@ -40,7 +37,6 @@ if (!$commande) {
     exit;
 }
 
-// Vérifier si un avis existe déjà
 $stmt_check = $pdo->prepare("SELECT avis_id FROM avis WHERE commande_id = :commande_id AND utilisateur_id = :utilisateur_id");
 $stmt_check->execute([
     'commande_id'    => $commande_id,

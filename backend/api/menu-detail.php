@@ -2,7 +2,6 @@
 require_once __DIR__ . '/../includes/config.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
 
 // Vérifier que l'ID est passé
 if (!isset($_GET['id']) || empty($_GET['id'])) {

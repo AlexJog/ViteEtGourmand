@@ -1,12 +1,11 @@
-const URL_API      = `${BASE_URL}/api/admin/ajouter-menu.php`;
+const URL_API        = `${BASE_URL}/api/admin/ajouter-menu.php`;
 const URL_TRAITEMENT = `${BASE_URL}/api/admin/traitement-menu.php`;
 
 const zoneMessages = document.getElementById('zone-messages');
 const form         = document.getElementById('form-ajouter-menu');
 
-// Charger les régimes et thèmes
 async function chargerOptions() {
-    const reponse = await fetch(URL_API);
+    const reponse = await fetchAvecToken(URL_API);
     const data    = await reponse.json();
 
     if (data.erreur === 'non_connecte') {
@@ -19,7 +18,6 @@ async function chargerOptions() {
         return;
     }
 
-    // Remplir les selects
     const selectRegime = document.getElementById('regime_id');
     const selectTheme  = document.getElementById('theme_id');
 
@@ -38,14 +36,12 @@ async function chargerOptions() {
     });
 }
 
-// Soumettre le formulaire
 form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    // FormData gère automatiquement l'upload de fichier
     const formData = new FormData(form);
 
-    const reponse = await fetch(URL_TRAITEMENT, { method: 'POST', body: formData });
+    const reponse = await fetchAvecToken(URL_TRAITEMENT, { method: 'POST', body: formData });
     const data    = await reponse.json();
 
     if (data.erreurs) {

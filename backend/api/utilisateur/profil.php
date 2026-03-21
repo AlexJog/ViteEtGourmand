@@ -1,21 +1,19 @@
 <?php
 require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/auth.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['erreur' => 'non_connecte']);
-    exit;
-}
+// Vérifier le token
+$user_connecte = verifierToken($pdo);
 
-if ($_SESSION['user_role'] !== 'utilisateur') {
+if ($user_connecte['role_nom'] !== 'utilisateur') {
     echo json_encode(['erreur' => 'non_autorise']);
     exit;
 }
 
 $stmt = $pdo->prepare("SELECT * FROM utilisateur WHERE utilisateur_id = :utilisateur_id");
-$stmt->execute(['utilisateur_id' => $_SESSION['user_id']]);
+$stmt->execute(['utilisateur_id' => $user_connecte['utilisateur_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user) {
@@ -27,6 +25,7 @@ if (!$user) {
 unset($user['password']);
 unset($user['reset_token']);
 unset($user['reset_token_expire']);
+unset($user['api_token']);
 
 echo json_encode(['user' => $user]);
 ?>

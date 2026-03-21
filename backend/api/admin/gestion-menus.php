@@ -1,15 +1,13 @@
 <?php
 require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/auth.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['erreur' => 'non_connecte']);
-    exit;
-}
+// Vérifier le token
+$user_connecte = verifierToken($pdo);
 
-if ($_SESSION['user_role'] !== 'admin') {
+if ($user_connecte['role_nom'] !== 'admin') {
     echo json_encode(['erreur' => 'non_autorise']);
     exit;
 }
@@ -21,18 +19,8 @@ $stmt = $pdo->query("SELECT m.*, r.libelle AS regime_nom, t.libelle AS theme_nom
                      ORDER BY m.menu_id DESC");
 $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$messages = [];
-if (isset($_SESSION['succes_admin'])) {
-    $messages['succes'] = $_SESSION['succes_admin'];
-    unset($_SESSION['succes_admin']);
-}
-if (isset($_SESSION['error_admin'])) {
-    $messages['erreur'] = $_SESSION['error_admin'];
-    unset($_SESSION['error_admin']);
-}
-
 echo json_encode([
     'menus'    => $menus,
-    'messages' => $messages
+    'messages' => [] // Plus de sessions
 ]);
 ?>

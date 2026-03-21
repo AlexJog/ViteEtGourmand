@@ -1,22 +1,19 @@
 <?php
 require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/auth.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['erreur' => 'non_connecte']);
-    exit;
-}
-
-if ($_SESSION['user_role'] !== 'admin') {
-    echo json_encode(['erreur' => 'non_autorise']);
-    exit;
-}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['erreurs' => ['Méthode non autorisée.']]);
+    exit;
+}
+
+// Vérifier le token
+$user_connecte = verifierToken($pdo);
+
+if ($user_connecte['role_nom'] !== 'admin') {
+    echo json_encode(['erreur' => 'non_autorise']);
     exit;
 }
 
@@ -24,8 +21,6 @@ $action = $_POST['action'] ?? '';
 
 // FONCTION UPLOAD IMAGE
 function uploadImage($file) {
-
-    // Sur Heroku : utiliser une image par défaut
     if (getenv("JAWSDB_URL")) {
         return ['erreur' => false, 'chemin' => '/assets/images/menus/menu-default.jpg'];
     }
@@ -52,8 +47,8 @@ function uploadImage($file) {
         return ['erreur' => true, 'message' => "Format d'image non autorisé (JPG, JPEG, PNG uniquement)."];
     }
 
-    $extension    = pathinfo($file['name'], PATHINFO_EXTENSION);
-    $nom_fichier  = 'menu-' . time() . '-' . uniqid() . '.' . $extension;
+    $extension      = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $nom_fichier    = 'menu-' . time() . '-' . uniqid() . '.' . $extension;
     $dossier_upload = '../../assets/images/menus/';
     $chemin_complet = $dossier_upload . $nom_fichier;
 
@@ -126,15 +121,15 @@ if ($action === 'ajouter') {
 // MODIFIER UN MENU
 } elseif ($action === 'modifier') {
 
-    $menu_id           = (int)($_POST['menu_id']          ?? 0);
-    $nom               = trim($_POST['nom']               ?? '');
-    $description       = trim($_POST['description']       ?? '');
-    $service           = trim($_POST['service']           ?? '');
-    $regime_id         = (int)($_POST['regime_id']        ?? 0);
-    $theme_id          = (int)($_POST['theme_id']         ?? 0);
+    $menu_id           = (int)($_POST['menu_id']             ?? 0);
+    $nom               = trim($_POST['nom']                  ?? '');
+    $description       = trim($_POST['description']          ?? '');
+    $service           = trim($_POST['service']              ?? '');
+    $regime_id         = (int)($_POST['regime_id']           ?? 0);
+    $theme_id          = (int)($_POST['theme_id']            ?? 0);
     $prix_par_personne = (float)($_POST['prix_par_personne'] ?? 0);
-    $personne_minimum  = (int)($_POST['personne_minimum'] ?? 0);
-    $quantite_restante = (int)($_POST['quantite_restante'] ?? 0);
+    $personne_minimum  = (int)($_POST['personne_minimum']    ?? 0);
+    $quantite_restante = (int)($_POST['quantite_restante']   ?? 0);
 
     $erreurs = [];
 
@@ -148,7 +143,6 @@ if ($action === 'ajouter') {
         $erreurs[] = "Le nombre minimum de personnes doit être supérieur à 0.";
     }
 
-    // Nouvelle image ?
     $image_url = null;
     if (isset($_FILES['image']) && $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
         $upload_result = uploadImage($_FILES['image']);
@@ -158,7 +152,6 @@ if ($action === 'ajouter') {
         } else {
             $image_url = $upload_result['chemin'];
 
-            // Supprimer l'ancienne image
             $stmt_old = $pdo->prepare("SELECT image_url FROM menu WHERE menu_id = :menu_id");
             $stmt_old->execute(['menu_id' => $menu_id]);
             $old_image = $stmt_old->fetch()['image_url'];

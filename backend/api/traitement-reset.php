@@ -3,8 +3,6 @@ require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/email-functions.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['erreurs' => ['Méthode non autorisée.']]);
@@ -27,13 +25,11 @@ if (!empty($erreurs)) {
     exit;
 }
 
-// Vérifier si l'email existe en BDD
 $stmt = $pdo->prepare("SELECT utilisateur_id, prenom, nom FROM utilisateur WHERE email = :email");
 $stmt->execute(['email' => $email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($user) {
-    // Générer un token unique
     $token  = bin2hex(random_bytes(32));
     $expire = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
@@ -44,7 +40,8 @@ if ($user) {
         'id'     => $user['utilisateur_id']
     ]);
 
-    $lien = "https://vite-et-gourmand-alex-a85135b73360.herokuapp.com/nouveau-mot-de-passe.html?token=$token";
+    // Lien vers le frontend Netlify
+    $lien = "https://vite-et-gourmand-alex.netlify.app/pages/nouveau-mot-de-passe.html?token=$token";
 
     $message = "Bonjour {$user['prenom']} {$user['nom']},
 
@@ -69,7 +66,6 @@ contact@vitegourmand.fr";
     );
 }
 
-// On répond toujours succès pour ne pas révéler si l'email existe
 echo json_encode([
     'succes' => "Si cette adresse email existe dans notre base, vous allez recevoir un lien de réinitialisation."
 ]);

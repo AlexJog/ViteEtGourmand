@@ -1,12 +1,11 @@
-const URL_API       = `${BASE_URL}/api/utilisateur/profil.php`;
+const URL_API        = `${BASE_URL}/api/utilisateur/profil.php`;
 const URL_TRAITEMENT = `${BASE_URL}/api/utilisateur/traitement-profil.php`;
 
 const zoneMessages = document.getElementById('zone-messages');
 const form         = document.getElementById('form-profil');
 
-// Charger les infos du profil
 async function chargerProfil() {
-    const reponse = await fetch(URL_API);
+    const reponse = await fetchAvecToken(URL_API);
     const data    = await reponse.json();
 
     if (data.erreur === 'non_connecte') {
@@ -21,7 +20,6 @@ async function chargerProfil() {
 
     const user = data.user;
 
-    // Remplir les champs
     document.getElementById('nom').value             = user.nom;
     document.getElementById('prenom').value          = user.prenom;
     document.getElementById('email').value           = user.email;
@@ -32,13 +30,12 @@ async function chargerProfil() {
     document.getElementById('pays').value            = user.pays;
 }
 
-// Soumettre le formulaire
 form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const formData = new FormData(form);
 
-    const reponse = await fetch(URL_TRAITEMENT, { method: 'POST', body: formData });
+    const reponse = await fetchAvecToken(URL_TRAITEMENT, { method: 'POST', body: formData });
     const data    = await reponse.json();
 
     if (data.erreurs) {
@@ -50,6 +47,10 @@ form.addEventListener('submit', async function(e) {
     }
 
     if (data.succes) {
+        // Mettre à jour le prenom dans localStorage si changé
+        if (data.prenom) {
+            localStorage.setItem('prenom', data.prenom);
+        }
         window.location.href = data.redirect;
     }
 });

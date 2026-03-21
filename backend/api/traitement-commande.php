@@ -1,22 +1,18 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/email-functions.php';
+require_once __DIR__ . '/../includes/auth.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
 
-// Vérifier que l'utilisateur est connecté
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['erreurs' => ['Vous devez être connecté pour commander.']]);
-    exit;
-}
-
-// Vérifier que c'est bien un POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['erreurs' => ['Méthode non autorisée.']]);
     exit;
 }
+
+// Vérifier le token et récupérer l'utilisateur
+$user_connecte  = verifierToken($pdo);
+$utilisateur_id = $user_connecte['utilisateur_id'];
 
 // Récupération des données
 $menu_id           = (int)($_POST['menu_id']          ?? 0);
@@ -29,11 +25,9 @@ $ville             = trim($_POST['ville']             ?? '');
 $commentaire       = trim($_POST['commentaire']       ?? '');
 $hors_bordeaux     = isset($_POST['hors_bordeaux']) ? 1 : 0;
 $kilometres        = isset($_POST['kilometres']) ? (float)$_POST['kilometres'] : 0;
-$utilisateur_id    = $_SESSION['user_id'];
 
 $erreurs = [];
 
-// VALIDATION
 if (empty($menu_id) || empty($date_prestation) || empty($heure_livraison) ||
     empty($nombre_personnes) || empty($adresse_livraison) || empty($code_postal) || empty($ville)) {
     $erreurs[] = "Tous les champs obligatoires doivent être remplis.";
@@ -48,7 +42,6 @@ if ($hors_bordeaux && $kilometres <= 0) {
     $erreurs[] = "Veuillez indiquer la distance en kilomètres pour une livraison hors Bordeaux.";
 }
 
-// Récupérer le menu pour validation
 $stmt_menu = $pdo->prepare("SELECT * FROM menu WHERE menu_id = :menu_id");
 $stmt_menu->execute(['menu_id' => $menu_id]);
 $menu = $stmt_menu->fetch(PDO::FETCH_ASSOC);
@@ -86,7 +79,6 @@ if ($hors_bordeaux) {
 
 $prix_total = $prix_menu + $frais_livraison;
 
-// ENREGISTREMENT EN BDD
 try {
     $pdo->beginTransaction();
 
@@ -104,32 +96,29 @@ try {
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
-        'utilisateur_id'   => $utilisateur_id,
-        'menu_id'          => $menu_id,
-        'date_prestation'  => $date_prestation,
-        'heure_livraison'  => $heure_livraison,
-        'nombre_personnes' => $nombre_personnes,
-        'prix_total'       => $prix_total,
-        'hors_bordeaux'    => $hors_bordeaux,
-        'kilometres'       => $kilometres,
-        'frais_livraison'  => $frais_livraison,
-        'reduction'        => $reduction,
-        'adresse_livraison'=> $adresse_livraison,
-        'code_postal'      => $code_postal,
-        'ville'            => $ville,
-        'commentaire'      => $commentaire
+        'utilisateur_id'    => $utilisateur_id,
+        'menu_id'           => $menu_id,
+        'date_prestation'   => $date_prestation,
+        'heure_livraison'   => $heure_livraison,
+        'nombre_personnes'  => $nombre_personnes,
+        'prix_total'        => $prix_total,
+        'hors_bordeaux'     => $hors_bordeaux,
+        'kilometres'        => $kilometres,
+        'frais_livraison'   => $frais_livraison,
+        'reduction'         => $reduction,
+        'adresse_livraison' => $adresse_livraison,
+        'code_postal'       => $code_postal,
+        'ville'             => $ville,
+        'commentaire'       => $commentaire
     ]);
 
-    // Mise à jour du stock
     $stmt_stock = $pdo->prepare("UPDATE menu SET quantite_restante = quantite_restante - 1 WHERE menu_id = :menu_id");
     $stmt_stock->execute(['menu_id' => $menu_id]);
 
-    // Récupérer les infos utilisateur pour l'email
     $stmt_user = $pdo->prepare("SELECT email, prenom, nom FROM utilisateur WHERE utilisateur_id = :utilisateur_id");
     $stmt_user->execute(['utilisateur_id' => $utilisateur_id]);
     $user = $stmt_user->fetch(PDO::FETCH_ASSOC);
 
-    // Construire le message email
     $message = "Bonjour {$user['prenom']} {$user['nom']},
 
 Nous avons bien reçu votre commande !
@@ -162,7 +151,7 @@ Votre commande sera traitée dans les plus brefs délais.
 Vous recevrez une notification dès que votre commande sera validée.
 
 Vous pouvez suivre l'état de votre commande dans votre espace client :
-→ https://vite-et-gourmand-alex-a85135b73360.herokuapp.com/utilisateur/mes-commandes.html
+→ https://vite-et-gourmand-alex.netlify.app/pages/utilisateur/mes-commandes.html
 
 Merci de votre confiance !
 

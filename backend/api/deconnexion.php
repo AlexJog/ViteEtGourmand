@@ -2,7 +2,6 @@
 require_once __DIR__ . '/../includes/config.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
 
 // Récupérer le token depuis le header
 $headers = getallheaders();

@@ -1,24 +1,26 @@
 <?php
 require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/auth.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['erreur' => 'non_connecte']);
-    exit;
-}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['erreurs' => ['Méthode non autorisée.']]);
     exit;
 }
 
-$commande_id    = (int)($_POST['commande_id'] ?? 0);
-$note           = (int)($_POST['note']        ?? 0);
-$commentaire    = trim($_POST['commentaire']  ?? '');
-$utilisateur_id = $_SESSION['user_id'];
+// Vérifier le token
+$user_connecte  = verifierToken($pdo);
+$utilisateur_id = $user_connecte['utilisateur_id'];
+
+if ($user_connecte['role_nom'] !== 'utilisateur') {
+    echo json_encode(['erreur' => 'non_autorise']);
+    exit;
+}
+
+$commande_id = (int)($_POST['commande_id'] ?? 0);
+$note        = (int)($_POST['note']        ?? 0);
+$commentaire = trim($_POST['commentaire']  ?? '');
 
 $erreurs = [];
 

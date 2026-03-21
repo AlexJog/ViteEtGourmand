@@ -1,4 +1,4 @@
-const URL_API       = `${BASE_URL}/api/utilisateur/laisser-avis.php`;
+const URL_API        = `${BASE_URL}/api/utilisateur/laisser-avis.php`;
 const URL_TRAITEMENT = `${BASE_URL}/api/utilisateur/traitement-avis.php`;
 
 const zoneMessages = document.getElementById('zone-messages');
@@ -12,7 +12,7 @@ async function chargerAvis() {
         return;
     }
 
-    const reponse = await fetch(`${URL_API}?commande_id=${commande_id}`);
+    const reponse = await fetchAvecToken(`${URL_API}?commande_id=${commande_id}`);
     const data    = await reponse.json();
 
     if (data.erreur === 'non_connecte') {
@@ -30,8 +30,8 @@ async function chargerAvis() {
         return;
     }
 
-    document.getElementById('menu-nom').textContent  = data.menu_nom;
-    document.getElementById('commande_id').value     = commande_id;
+    document.getElementById('menu-nom').textContent = data.menu_nom;
+    document.getElementById('commande_id').value    = commande_id;
 }
 
 form.addEventListener('submit', async function(e) {
@@ -39,7 +39,7 @@ form.addEventListener('submit', async function(e) {
 
     const formData = new FormData(form);
 
-    const reponse = await fetch(URL_TRAITEMENT, { method: 'POST', body: formData });
+    const reponse = await fetchAvecToken(URL_TRAITEMENT, { method: 'POST', body: formData });
     const data    = await reponse.json();
 
     if (data.erreurs) {

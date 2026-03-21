@@ -3,6 +3,16 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Headers CORS — appliqués partout automatiquement
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: X-AUTH-TOKEN, Content-Type');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+
+// Répondre immédiatement aux requêtes preflight
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit(0);
+}
+
 if (getenv("JAWSDB_URL")) {
     require_once __DIR__ . '/config-heroku.php';
 } else {

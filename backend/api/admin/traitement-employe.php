@@ -1,22 +1,19 @@
 <?php
 require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/auth.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['erreur' => 'non_connecte']);
-    exit;
-}
-
-if ($_SESSION['user_role'] !== 'admin') {
-    echo json_encode(['erreur' => 'non_autorise']);
-    exit;
-}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['erreurs' => ['Méthode non autorisée.']]);
+    exit;
+}
+
+// Vérifier le token
+$user_connecte = verifierToken($pdo);
+
+if ($user_connecte['role_nom'] !== 'admin') {
+    echo json_encode(['erreur' => 'non_autorise']);
     exit;
 }
 
@@ -36,24 +33,12 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $erreurs[] = "L'adresse email n'est pas valide.";
 }
 
-// Valider le mot de passe sécurisé
-if (strlen($password) < 10) {
-    $erreurs[] = "Le mot de passe doit contenir au minimum 10 caractères.";
-}
-if (!preg_match('/[A-Z]/', $password)) {
-    $erreurs[] = "Le mot de passe doit contenir au moins une majuscule.";
-}
-if (!preg_match('/[a-z]/', $password)) {
-    $erreurs[] = "Le mot de passe doit contenir au moins une minuscule.";
-}
-if (!preg_match('/[0-9]/', $password)) {
-    $erreurs[] = "Le mot de passe doit contenir au moins un chiffre.";
-}
-if (!preg_match('/[@#$%&*!?.,;:_\-]/', $password)) {
-    $erreurs[] = "Le mot de passe doit contenir au moins un caractère spécial (@#$%&*!?.,;:_-).";
-}
+if (strlen($password) < 10)                         $erreurs[] = "Le mot de passe doit contenir au minimum 10 caractères.";
+if (!preg_match('/[A-Z]/', $password))              $erreurs[] = "Le mot de passe doit contenir au moins une majuscule.";
+if (!preg_match('/[a-z]/', $password))              $erreurs[] = "Le mot de passe doit contenir au moins une minuscule.";
+if (!preg_match('/[0-9]/', $password))              $erreurs[] = "Le mot de passe doit contenir au moins un chiffre.";
+if (!preg_match('/[@#$%&*!?.,;:_\-]/', $password)) $erreurs[] = "Le mot de passe doit contenir au moins un caractère spécial (@#$%&*!?.,;:_-).";
 
-// Vérifier que l'email n'existe pas déjà
 if (empty($erreurs)) {
     $stmt_check = $pdo->prepare("SELECT utilisateur_id FROM utilisateur WHERE email = :email");
     $stmt_check->execute(['email' => $email]);
@@ -70,7 +55,6 @@ if (!empty($erreurs)) {
 try {
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Récupérer le role_id dynamiquement
     $stmt_role = $pdo->query("SELECT role_id FROM role WHERE libelle = 'employe'");
     $role_id   = $stmt_role->fetch()['role_id'];
 
@@ -85,7 +69,7 @@ try {
         'role_id'   => $role_id
     ]);
 
-    // Email à l'employé
+    // Email avec lien Netlify
     $sujet   = "Votre compte employé - Vite & Gourmand";
     $message = "Bonjour $prenom $nom,
 
@@ -96,7 +80,7 @@ Informations de connexion :
 - Mot de passe : Pour des raisons de sécurité, le mot de passe n'est pas communiqué par email. Veuillez contacter l'administrateur pour l'obtenir.
 
 Vous pouvez vous connecter à l'adresse suivante :
-→ https://vite-et-gourmand-alex-a85135b73360.herokuapp.com/connexion.html
+→ https://vite-et-gourmand-alex.netlify.app/pages/connexion.html
 
 Une fois connecté, vous aurez accès à votre espace employé pour gérer les commandes et les avis clients.
 

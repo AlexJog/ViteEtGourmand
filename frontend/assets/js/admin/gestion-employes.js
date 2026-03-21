@@ -1,4 +1,4 @@
-const URL_API     = `${BASE_URL}/api/admin/gestion-employes.php`;
+const URL_API      = `${BASE_URL}/api/admin/gestion-employes.php`;
 const URL_MODIFIER = `${BASE_URL}/api/admin/modifier-employe.php`;
 
 const zoneMessages  = document.getElementById('zone-messages');
@@ -49,7 +49,7 @@ async function changerStatut(employe_id, action) {
     formData.append('employe_id', employe_id);
     formData.append('action',     action);
 
-    const reponse = await fetch(URL_MODIFIER, { method: 'POST', body: formData });
+    const reponse = await fetchAvecToken(URL_MODIFIER, { method: 'POST', body: formData });
     const data    = await reponse.json();
 
     if (data.succes) {
@@ -65,7 +65,7 @@ async function changerStatut(employe_id, action) {
 }
 
 async function chargerEmployes() {
-    const reponse = await fetch(URL_API);
+    const reponse = await fetchAvecToken(URL_API);
     const data    = await reponse.json();
 
     if (data.erreur === 'non_connecte') {
@@ -76,13 +76,6 @@ async function chargerEmployes() {
     if (data.erreur === 'non_autorise') {
         window.location.href = '../index.html';
         return;
-    }
-
-    if (data.messages.succes) {
-        zoneMessages.innerHTML = `<div class="alert alert-success"><p>${data.messages.succes}</p></div>`;
-    }
-    if (data.messages.erreur) {
-        zoneMessages.innerHTML = `<div class="alert alert-error"><p>${data.messages.erreur}</p></div>`;
     }
 
     if (data.employes.length === 0) {

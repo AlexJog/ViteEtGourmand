@@ -1,12 +1,12 @@
-const URL_API    = `${BASE_URL}/api/employe/gestion-avis.php`;
+const URL_API     = `${BASE_URL}/api/employe/gestion-avis.php`;
 const URL_TRAITER = `${BASE_URL}/api/employe/traiter-avis.php`;
 
 const zoneMessages = document.getElementById('zone-messages');
 const zoneStats    = document.getElementById('zone-stats');
 const zoneAvis     = document.getElementById('zone-avis');
 
-const params  = new URLSearchParams(window.location.search);
-const filtre  = params.get('statut') || 'tous';
+const params = new URLSearchParams(window.location.search);
+const filtre = params.get('statut') || 'tous';
 
 const statutsBadge = {
     'en attente' : { couleur: '#FFC107', texte: '⏳ En attente' },
@@ -67,7 +67,7 @@ async function traiterAvis(avis_id, action) {
     formData.append('avis_id', avis_id);
     formData.append('action',  action);
 
-    const reponse = await fetch(URL_TRAITER, { method: 'POST', body: formData });
+    const reponse = await fetchAvecToken(URL_TRAITER, { method: 'POST', body: formData });
     const data    = await reponse.json();
 
     if (data.succes) {
@@ -81,7 +81,7 @@ async function traiterAvis(avis_id, action) {
 }
 
 async function chargerAvis() {
-    const reponse = await fetch(`${URL_API}?statut=${encodeURIComponent(filtre)}`);
+    const reponse = await fetchAvecToken(`${URL_API}?statut=${encodeURIComponent(filtre)}`);
     const data    = await reponse.json();
 
     if (data.erreur === 'non_connecte') {
@@ -92,13 +92,6 @@ async function chargerAvis() {
     if (data.erreur === 'non_autorise') {
         window.location.href = '../index.html';
         return;
-    }
-
-    if (data.messages.succes) {
-        zoneMessages.innerHTML = `<div class="alert alert-success"><p>${data.messages.succes}</p></div>`;
-    }
-    if (data.messages.erreur) {
-        zoneMessages.innerHTML = `<div class="alert alert-error"><p>${data.messages.erreur}</p></div>`;
     }
 
     const total = Object.values(data.stats).reduce((a, b) => a + b, 0);

@@ -9,7 +9,7 @@ const form          = document.getElementById('form-filtres');
 let monChart = null;
 
 function genererCarteStats(stat) {
-    const ca      = parseFloat(stat.chiffre_affaires).toFixed(2).replace('.', ',');
+    const ca       = parseFloat(stat.chiffre_affaires).toFixed(2).replace('.', ',');
     const ca_moyen = (stat.chiffre_affaires / stat.nb_commandes).toFixed(2).replace('.', ',');
 
     return `
@@ -37,7 +37,7 @@ function genererCarteStats(stat) {
 }
 
 async function chargerStats(params = '') {
-    const reponse = await fetch(`${URL_API}${params ? '?' + params : ''}`);
+    const reponse = await fetchAvecToken(`${URL_API}${params ? '?' + params : ''}`);
     const data    = await reponse.json();
 
     if (data.erreur === 'non_connecte') {
@@ -50,10 +50,8 @@ async function chargerStats(params = '') {
         return;
     }
 
-    // Nb total
     document.getElementById('nb-total').textContent = data.nb_total;
 
-    // Remplir le select menus
     const selectMenu = document.getElementById('menu_id');
     if (selectMenu.options.length === 1) {
         data.menus.forEach(menu => {
@@ -65,7 +63,6 @@ async function chargerStats(params = '') {
         });
     }
 
-    // Remettre les dates
     if (data.filtres.date_debut) document.getElementById('date_debut').value = data.filtres.date_debut;
     if (data.filtres.date_fin)   document.getElementById('date_fin').value   = data.filtres.date_fin;
 
@@ -84,7 +81,6 @@ async function chargerStats(params = '') {
             ${data.stats_menus.map(genererCarteStats).join('')}
         </div>`;
 
-    // Graphique
     zoneGraphique.style.display = 'block';
     const labels = data.stats_menus.map(s => s.menu_nom);
     const values = data.stats_menus.map(s => s.nb_commandes);
@@ -103,10 +99,9 @@ async function chargerStats(params = '') {
     });
 }
 
-// Filtres
 form.addEventListener('submit', function(e) {
     e.preventDefault();
-    const params = new URLSearchParams();
+    const params     = new URLSearchParams();
     const menu_id    = document.getElementById('menu_id').value;
     const date_debut = document.getElementById('date_debut').value;
     const date_fin   = document.getElementById('date_fin').value;
@@ -116,7 +111,6 @@ form.addEventListener('submit', function(e) {
     chargerStats(params.toString());
 });
 
-// Popup synchronisation
 document.getElementById('btnSync').addEventListener('click', function(e) {
     e.preventDefault();
     document.getElementById('popupSync').style.display = 'flex';
@@ -132,7 +126,7 @@ document.getElementById('btnConfirmSync').addEventListener('click', function() {
 });
 
 async function synchroniser() {
-    const reponse = await fetch(URL_SYNC, { method: 'POST' });
+    const reponse = await fetchAvecToken(URL_SYNC, { method: 'POST' });
     const data    = await reponse.json();
 
     if (data.succes) {

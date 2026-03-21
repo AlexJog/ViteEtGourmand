@@ -1,28 +1,24 @@
 <?php
 require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/auth.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['erreur' => 'non_connecte']);
-    exit;
-}
-
-if ($_SESSION['user_role'] !== 'employe' && $_SESSION['user_role'] !== 'admin') {
-    echo json_encode(['erreur' => 'non_autorise']);
-    exit;
-}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['erreur' => 'Méthode non autorisée.']);
     exit;
 }
 
+// Vérifier le token
+$user_connecte = verifierToken($pdo);
+
+if ($user_connecte['role_nom'] !== 'employe' && $user_connecte['role_nom'] !== 'admin') {
+    echo json_encode(['erreur' => 'non_autorise']);
+    exit;
+}
+
 $commande_id = (int)($_POST['commande_id'] ?? 0);
 
-// Déterminer le nouveau statut
 if (isset($_POST['nouveau_statut'])) {
     $nouveau_statut = $_POST['nouveau_statut'];
 } elseif (isset($_POST['action'])) {
@@ -73,7 +69,7 @@ Votre commande du menu \"{$info['menu_nom']}\" est maintenant terminée !
 Nous espérons que tout s'est bien passé et que vous avez apprécié nos services.
 
 Nous serions ravis d'avoir votre retour ! Connectez-vous à votre espace client pour laisser un avis :
-→ https://vite-et-gourmand-alex-a85135b73360.herokuapp.com/utilisateur/mes-commandes.html
+→ https://vite-et-gourmand-alex.netlify.app/pages/utilisateur/mes-commandes.html
 
 Merci de votre confiance !
 

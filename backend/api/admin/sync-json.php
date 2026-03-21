@@ -1,17 +1,14 @@
 <?php
 require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/../../includes/json-config.php';
+require_once __DIR__ . '/../../includes/auth.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['erreur' => 'non_connecte']);
-    exit;
-}
+// Vérifier le token
+$user_connecte = verifierToken($pdo);
 
-if ($_SESSION['user_role'] !== 'admin') {
+if ($user_connecte['role_nom'] !== 'admin') {
     echo json_encode(['erreur' => 'non_autorise']);
     exit;
 }

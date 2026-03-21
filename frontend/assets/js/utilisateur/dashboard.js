@@ -1,7 +1,7 @@
 const URL_API = `${BASE_URL}/api/utilisateur/dashboard.php`;
 
 async function chargerDashboard() {
-    const reponse = await fetch(URL_API);
+    const reponse = await fetchAvecToken(URL_API);
     const data    = await reponse.json();
 
     if (data.erreur === 'non_connecte') {

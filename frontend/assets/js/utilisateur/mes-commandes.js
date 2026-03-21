@@ -1,8 +1,7 @@
-const URL_API      = `${BASE_URL}/api/utilisateur/mes-commandes.php`;
-const zoneMessages = document.getElementById('zone-messages');
+const URL_API        = `${BASE_URL}/api/utilisateur/mes-commandes.php`;
+const zoneMessages   = document.getElementById('zone-messages');
 const listeCommandes = document.getElementById('liste-commandes');
 
-// Correspondance statut → badge
 const statuts = {
     'en attente'       : { couleur: '#FFC107', texte: '⏳ En attente' },
     'accepté'          : { couleur: '#17A2B8', texte: '✅ Accepté' },
@@ -82,7 +81,7 @@ function genererCarteCommande(commande) {
 }
 
 async function chargerCommandes() {
-    const reponse = await fetch(URL_API);
+    const reponse = await fetchAvecToken(URL_API);
     const data    = await reponse.json();
 
     if (data.erreur === 'non_connecte') {
@@ -93,14 +92,6 @@ async function chargerCommandes() {
     if (data.erreur === 'non_autorise') {
         window.location.href = '../index.html';
         return;
-    }
-
-    // Afficher les messages de session
-    if (data.messages.succes) {
-        zoneMessages.innerHTML = `<div class="alert alert-success"><p>${data.messages.succes}</p></div>`;
-    }
-    if (data.messages.erreur) {
-        zoneMessages.innerHTML = `<div class="alert alert-error"><p>${data.messages.erreur}</p></div>`;
     }
 
     if (data.commandes.length === 0) {

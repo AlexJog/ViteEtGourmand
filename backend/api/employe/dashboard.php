@@ -1,15 +1,13 @@
 <?php
 require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/auth.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['erreur' => 'non_connecte']);
-    exit;
-}
+// Vérifier le token
+$user_connecte = verifierToken($pdo);
 
-if ($_SESSION['user_role'] !== 'employe' && $_SESSION['user_role'] !== 'admin') {
+if ($user_connecte['role_nom'] !== 'employe' && $user_connecte['role_nom'] !== 'admin') {
     echo json_encode(['erreur' => 'non_autorise']);
     exit;
 }
@@ -17,7 +15,7 @@ if ($_SESSION['user_role'] !== 'employe' && $_SESSION['user_role'] !== 'admin') 
 $nb_attente = $pdo->query("SELECT COUNT(*) as nb FROM commande WHERE statut = 'en attente'")->fetch()['nb'];
 
 echo json_encode([
-    'prenom'     => $_SESSION['user_prenom'],
+    'prenom'     => $user_connecte['prenom'],
     'nb_attente' => $nb_attente
 ]);
 ?>

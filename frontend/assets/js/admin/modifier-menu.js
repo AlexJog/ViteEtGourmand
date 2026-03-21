@@ -9,7 +9,7 @@ const menu_id      = params.get('id');
 if (!menu_id) window.location.href = 'gestion-menus.html';
 
 async function chargerMenu() {
-    const reponse = await fetch(`${URL_API}?id=${menu_id}`);
+    const reponse = await fetchAvecToken(`${URL_API}?id=${menu_id}`);
     const data    = await reponse.json();
 
     if (data.erreur === 'non_connecte') {
@@ -24,7 +24,6 @@ async function chargerMenu() {
 
     const menu = data.menu;
 
-    // Remplir les champs
     document.getElementById('menu_id').value           = menu.menu_id;
     document.getElementById('menu-nom').textContent    = menu.nom;
     document.getElementById('nom').value               = menu.nom;
@@ -32,17 +31,13 @@ async function chargerMenu() {
     document.getElementById('prix_par_personne').value = menu.prix_par_personne;
     document.getElementById('personne_minimum').value  = menu.personne_minimum;
     document.getElementById('quantite_restante').value = menu.quantite_restante;
+    document.getElementById('service').value           = menu.service;
 
-    // Service
-    document.getElementById('service').value = menu.service;
-
-    // Image actuelle
     if (menu.image_url) {
-        document.getElementById('image-actuelle').src     = menu.image_url;
-        document.getElementById('zone-image-actuelle').style.display = 'block';
+        document.getElementById('image-actuelle').src                  = menu.image_url;
+        document.getElementById('zone-image-actuelle').style.display   = 'block';
     }
 
-    // Remplir les selects régime et thème
     const selectRegime = document.getElementById('regime_id');
     const selectTheme  = document.getElementById('theme_id');
 
@@ -68,7 +63,7 @@ form.addEventListener('submit', async function(e) {
 
     const formData = new FormData(form);
 
-    const reponse = await fetch(URL_TRAITEMENT, { method: 'POST', body: formData });
+    const reponse = await fetchAvecToken(URL_TRAITEMENT, { method: 'POST', body: formData });
     const data    = await reponse.json();
 
     if (data.erreurs) {

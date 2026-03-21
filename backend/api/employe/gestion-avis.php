@@ -1,22 +1,19 @@
 <?php
 require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/auth.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['erreur' => 'non_connecte']);
-    exit;
-}
+// Vérifier le token
+$user_connecte = verifierToken($pdo);
 
-if ($_SESSION['user_role'] !== 'employe' && $_SESSION['user_role'] !== 'admin') {
+if ($user_connecte['role_nom'] !== 'employe' && $user_connecte['role_nom'] !== 'admin') {
     echo json_encode(['erreur' => 'non_autorise']);
     exit;
 }
 
 $filtre_statut = isset($_GET['statut']) ? $_GET['statut'] : 'tous';
 
-// Récupérer les avis
 $sql = "SELECT a.*, u.prenom, u.nom, c.commande_id, m.nom AS menu_nom
         FROM avis a
         INNER JOIN utilisateur u ON a.utilisateur_id = u.utilisateur_id
@@ -39,28 +36,16 @@ if ($filtre_statut !== 'tous') {
 
 $avis_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Stats par statut
 $stats = [];
 $stmt_stats = $pdo->query("SELECT statut, COUNT(*) as nb FROM avis GROUP BY statut");
 while ($row = $stmt_stats->fetch()) {
     $stats[$row['statut']] = $row['nb'];
 }
 
-// Messages de session
-$messages = [];
-if (isset($_SESSION['succes_employe'])) {
-    $messages['succes'] = $_SESSION['succes_employe'];
-    unset($_SESSION['succes_employe']);
-}
-if (isset($_SESSION['error_employe'])) {
-    $messages['erreur'] = $_SESSION['error_employe'];
-    unset($_SESSION['error_employe']);
-}
-
 echo json_encode([
     'avis'          => $avis_list,
     'stats'         => $stats,
     'filtre_statut' => $filtre_statut,
-    'messages'      => $messages
+    'messages'      => [] // Plus de sessions
 ]);
 ?>

@@ -1,12 +1,12 @@
-const URL_API = `${BASE_URL}/api/employe/gestion-commandes.php`;
+const URL_API   = `${BASE_URL}/api/employe/gestion-commandes.php`;
 const URL_TRAITER = `${BASE_URL}/api/employe/traiter-commande.php`;
 
-const zoneMessages = document.getElementById('zone-messages');
-const zoneStats    = document.getElementById('zone-stats');
+const zoneMessages  = document.getElementById('zone-messages');
+const zoneStats     = document.getElementById('zone-stats');
 const zoneCommandes = document.getElementById('zone-commandes');
 
-const params       = new URLSearchParams(window.location.search);
-const filtre       = params.get('statut') || 'tous';
+const params  = new URLSearchParams(window.location.search);
+const filtre  = params.get('statut') || 'tous';
 
 const statuts = {
     'en attente'       : { couleur: '#FFC107', texte: '⏳ En attente' },
@@ -34,7 +34,6 @@ function formaterHeure(heureStr) {
     return heureStr.substring(0, 5);
 }
 
-// Générer les boutons d'action selon le statut
 function genererBoutons(commande) {
     const id = commande.commande_id;
 
@@ -109,7 +108,6 @@ function genererCarteCommande(commande) {
         </div>`;
 }
 
-// Changer le statut d'une commande
 async function changerStatut(commande_id, nouveau_statut, pret_materiel = 0, restitution_materiel = 0) {
     const formData = new FormData();
     formData.append('commande_id',          commande_id);
@@ -117,11 +115,10 @@ async function changerStatut(commande_id, nouveau_statut, pret_materiel = 0, res
     formData.append('pret_materiel',        pret_materiel);
     formData.append('restitution_materiel', restitution_materiel);
 
-    const reponse = await fetch(URL_TRAITER, { method: 'POST', body: formData });
+    const reponse = await fetchAvecToken(URL_TRAITER, { method: 'POST', body: formData });
     const data    = await reponse.json();
 
     if (data.succes) {
-        // Recharger la liste
         chargerCommandes();
     }
 
@@ -132,7 +129,7 @@ async function changerStatut(commande_id, nouveau_statut, pret_materiel = 0, res
 }
 
 async function chargerCommandes() {
-    const reponse = await fetch(`${URL_API}?statut=${encodeURIComponent(filtre)}`);
+    const reponse = await fetchAvecToken(`${URL_API}?statut=${encodeURIComponent(filtre)}`);
     const data    = await reponse.json();
 
     if (data.erreur === 'non_connecte') {
@@ -145,15 +142,6 @@ async function chargerCommandes() {
         return;
     }
 
-    // Messages de session
-    if (data.messages.succes) {
-        zoneMessages.innerHTML = `<div class="alert alert-success"><p>${data.messages.succes}</p></div>`;
-    }
-    if (data.messages.erreur) {
-        zoneMessages.innerHTML = `<div class="alert alert-error"><p>${data.messages.erreur}</p></div>`;
-    }
-
-    // Stats
     const totalCommandes = Object.values(data.stats).reduce((a, b) => a + b, 0);
     zoneStats.innerHTML = `
         <a href="?statut=tous" class="stat-card-link">
@@ -205,7 +193,6 @@ async function chargerCommandes() {
             </div>
         </a>`;
 
-    // Commandes
     if (data.commandes.length === 0) {
         const msg = filtre === 'tous'
             ? 'Aucune commande pour le moment.'

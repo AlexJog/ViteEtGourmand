@@ -8,7 +8,7 @@ form.addEventListener('submit', async function(e) {
 
     const formData = new FormData(form);
 
-    const reponse = await fetch(URL_TRAITEMENT, { method: 'POST', body: formData });
+    const reponse = await fetchAvecToken(URL_TRAITEMENT, { method: 'POST', body: formData });
     const data    = await reponse.json();
 
     if (data.erreurs) {
