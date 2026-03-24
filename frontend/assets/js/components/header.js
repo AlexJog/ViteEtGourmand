@@ -25,6 +25,7 @@ async function chargerHeader() {
 
         // Appliquer le flex sur navEspace pour espacer les éléments
         navEspace.style.cssText = 'display: flex; align-items: center; gap: 15px;';
+        navConnexion.style.display = 'none';
 
         navEspace.innerHTML = `
             <span class="user-greeting">Bonjour ${prenom}</span>
