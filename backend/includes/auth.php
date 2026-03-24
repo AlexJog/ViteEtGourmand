@@ -1,7 +1,12 @@
 <?php
 function verifierToken($pdo) {
     $headers = getallheaders();
-    $token   = $headers['X-AUTH-TOKEN'] ?? null;
+    
+    // Chercher le token dans différentes casses
+    $token = $headers['X-AUTH-TOKEN'] 
+          ?? $headers['X-Auth-Token'] 
+          ?? $headers['x-auth-token'] 
+          ?? null;
 
     if (!$token) {
         echo json_encode(['erreur' => 'non_connecte']);
