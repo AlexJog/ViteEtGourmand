@@ -3,7 +3,6 @@ async function chargerHeader() {
     const html    = await reponse.text();
     document.getElementById('header').innerHTML = html;
 
-    // Récupérer les infos depuis localStorage
     const token  = localStorage.getItem('token');
     const role   = localStorage.getItem('role');
     const prenom = localStorage.getItem('prenom');
@@ -23,6 +22,10 @@ async function chargerHeader() {
         };
 
         const espace = espaces[role];
+
+        // Appliquer le flex sur navEspace pour espacer les éléments
+        navEspace.style.cssText = 'display: flex; align-items: center; gap: 15px;';
+
         navEspace.innerHTML = `
             <span class="user-greeting">Bonjour ${prenom}</span>
             <a href="${espace.lien}">${espace.texte}</a>
@@ -67,7 +70,6 @@ async function chargerHeader() {
                 <a href="#" id="btn-deconnexion-mobile" class="mobile-deconnexion">Déconnexion</a>
             </div>`;
 
-        // Déconnexion — supprimer le localStorage
         document.getElementById('btn-deconnexion')?.addEventListener('click', async function(e) {
             e.preventDefault();
             await fetch(`${BASE_URL}/api/deconnexion.php`, {
