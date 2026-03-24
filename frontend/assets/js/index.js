@@ -9,21 +9,23 @@ const avisParDefaut = [
 ];
 
 // Message de bienvenue après connexion
-const firstLogin    = sessionStorage.getItem('first_login');
-const zoneBienvenue = document.getElementById('message-bienvenue');
+window.addEventListener('load', function() {
+    const firstLogin    = sessionStorage.getItem('first_login');
+    const zoneBienvenue = document.getElementById('message-bienvenue');
 
-if (firstLogin === 'true' && zoneBienvenue) {
-    const prenom = localStorage.getItem('prenom');
-    zoneBienvenue.innerHTML = `
-        <div class="message-bienvenue">
-            <h2>Bienvenue ${prenom} !</h2>
-            <p>Nous sommes ravis de vous revoir sur Vite & Gourmand.</p>
-        </div>`;
-    setTimeout(() => {
-        zoneBienvenue.innerHTML = '';
-    }, 3000);
-    sessionStorage.removeItem('first_login');
-}
+    if (firstLogin === 'true' && zoneBienvenue) {
+        const prenom = localStorage.getItem('prenom');
+        zoneBienvenue.innerHTML = `
+            <div class="message-bienvenue">
+                <h2>Bienvenue ${prenom} !</h2>
+                <p>Nous sommes ravis de vous revoir sur Vite & Gourmand.</p>
+            </div>`;
+        setTimeout(() => {
+            zoneBienvenue.innerHTML = '';
+        }, 3000);
+        sessionStorage.removeItem('first_login');
+    }
+});
 
 function genererEtoiles(note) {
     let etoiles = '';
