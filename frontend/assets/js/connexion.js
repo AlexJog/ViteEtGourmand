@@ -29,7 +29,7 @@ form.addEventListener('submit', async function(e) {
         localStorage.setItem('token',  data.token);
         localStorage.setItem('role',   data.role);
         localStorage.setItem('prenom', data.prenom);
-        localStorage.setItem('first_login', 'true');
+        sessionStorage.setItem('first_login', 'true');
         window.location.href = '/pages/' + data.redirect;
     }
 });

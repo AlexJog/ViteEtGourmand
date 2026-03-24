@@ -2,7 +2,6 @@ const URL_AVIS = `${BASE_URL}/api/avis.php`;
 
 const zoneAvis = document.getElementById('zone-avis');
 
-// Avis par défaut si aucun en BDD
 const avisParDefaut = [
     { prenom: 'Sabino', nom: '', note: 5, commentaire: 'Excellent service ! Les plats étaient délicieux et la présentation soignée.', date_avis: null },
     { prenom: 'Pierre', nom: '', note: 5, commentaire: 'Très professionnels, à l\'écoute. Je recommande vivement pour vos événements.', date_avis: null },
@@ -10,7 +9,7 @@ const avisParDefaut = [
 ];
 
 // Message de bienvenue après connexion
-const firstLogin    = localStorage.getItem('first_login');
+const firstLogin    = sessionStorage.getItem('first_login');
 const zoneBienvenue = document.getElementById('message-bienvenue');
 
 if (firstLogin === 'true' && zoneBienvenue) {
@@ -23,7 +22,7 @@ if (firstLogin === 'true' && zoneBienvenue) {
     setTimeout(() => {
         zoneBienvenue.innerHTML = '';
     }, 3000);
-    localStorage.removeItem('first_login');
+    sessionStorage.removeItem('first_login');
 }
 
 function genererEtoiles(note) {
