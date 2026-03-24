@@ -6,13 +6,14 @@ const form         = document.getElementById('form-connexion');
 form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('email',    document.getElementById('email').value);
-    formData.append('password', document.getElementById('password').value);
+    const body = new URLSearchParams();
+    body.append('email',    document.getElementById('email').value);
+    body.append('password', document.getElementById('password').value);
 
     const reponse = await fetch(URL_CONNEXION, {
         method: 'POST',
-        body: formData
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body
     });
 
     const data = await reponse.json();
