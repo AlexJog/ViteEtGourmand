@@ -86,19 +86,19 @@ html {
 }
 
 .logo {
-    font-family: var(--font-secondary);
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--white);
-    background-color: var(--primary-color);
-    padding: 10px 20px;
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    transition: opacity 0.3s ease;
+}
+
+.logo img {
+    height: 55px;
+    width: auto;
 }
 
 .logo:hover {
-    background-color: #556B1D;
+    opacity: 0.85;
 }
 
 /* Navigation Desktop */
