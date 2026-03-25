@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             if (data.succes) {
+                sessionStorage.setItem('inscription_succes', 'true');
                 window.location.href = '/pages/connexion.html';
             }
         } catch {
