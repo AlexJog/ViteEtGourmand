@@ -95,6 +95,7 @@ html {
 .logo img {
     height: 55px;
     width: auto;
+    mix-blend-mode: multiply;
 }
 
 .logo:hover {
