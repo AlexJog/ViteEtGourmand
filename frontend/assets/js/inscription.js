@@ -18,24 +18,32 @@ document.addEventListener('DOMContentLoaded', function() {
         body.append('password',         document.getElementById('password').value);
         body.append('password_confirm', document.getElementById('password_confirm').value);
 
-        const reponse = await fetch(URL_INSCRIPTION, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: body
-        });
+        try {
+            const reponse = await fetch(URL_INSCRIPTION, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: body
+            });
 
-        const data = await reponse.json();
+            const data = await reponse.json();
 
-        if (data.erreurs) {
+            if (data.erreurs) {
+                zoneMessages.innerHTML = `
+                    <div class="alert alert-error">
+                        ${data.erreurs.map(e => `<p>• ${e}</p>`).join('')}
+                    </div>`;
+                window.scrollTo(0, 0);
+            }
+
+            if (data.succes) {
+                window.location.href = '/pages/connexion.html';
+            }
+        } catch {
             zoneMessages.innerHTML = `
                 <div class="alert alert-error">
-                    ${data.erreurs.map(e => `<p>• ${e}</p>`).join('')}
+                    <p>Une erreur est survenue. Veuillez réessayer.</p>
                 </div>`;
             window.scrollTo(0, 0);
-        }
-
-        if (data.succes) {
-            window.location.href = '/pages/connexion.html';
         }
     });
 });
