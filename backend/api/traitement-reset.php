@@ -41,7 +41,7 @@ if ($user) {
     ]);
 
     // Lien vers le frontend Netlify
-    $lien = "https://vite-et-gourmand-alex.netlify.app/pages/nouveau-mot-de-passe.html?token=$token";
+    $lien = "https://vite-et-gourmand-alex-a85135b73360.herokuapp.com/pages/nouveau-mot-de-passe.html?token=$token";
 
     $message = "Bonjour {$user['prenom']} {$user['nom']},
 

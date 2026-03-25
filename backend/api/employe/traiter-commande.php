@@ -69,7 +69,7 @@ Votre commande du menu \"{$info['menu_nom']}\" est maintenant terminée !
 Nous espérons que tout s'est bien passé et que vous avez apprécié nos services.
 
 Nous serions ravis d'avoir votre retour ! Connectez-vous à votre espace client pour laisser un avis :
-→ https://vite-et-gourmand-alex.netlify.app/pages/utilisateur/mes-commandes.html
+→ https://vite-et-gourmand-alex-a85135b73360.herokuapp.com/pages/utilisateur/mes-commandes.html
 
 Merci de votre confiance !
 

@@ -151,7 +151,7 @@ Votre commande sera traitée dans les plus brefs délais.
 Vous recevrez une notification dès que votre commande sera validée.
 
 Vous pouvez suivre l'état de votre commande dans votre espace client :
-→ https://vite-et-gourmand-alex.netlify.app/pages/utilisateur/mes-commandes.html
+→ https://vite-et-gourmand-alex-a85135b73360.herokuapp.com/pages/utilisateur/mes-commandes.html
 
 Merci de votre confiance !
 

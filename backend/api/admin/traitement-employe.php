@@ -80,7 +80,7 @@ Informations de connexion :
 - Mot de passe : Pour des raisons de sécurité, le mot de passe n'est pas communiqué par email. Veuillez contacter l'administrateur pour l'obtenir.
 
 Vous pouvez vous connecter à l'adresse suivante :
-→ https://vite-et-gourmand-alex.netlify.app/pages/connexion.html
+→ https://vite-et-gourmand-alex-a85135b73360.herokuapp.com/pages/connexion.html
 
 Une fois connecté, vous aurez accès à votre espace employé pour gérer les commandes et les avis clients.
 
