@@ -68,7 +68,7 @@ function calculerPrix() {
     let reduction      = 0;
     let fraisLivraison = 0;
 
-    if (nbPersonnes >= 50) {
+    if (nbPersonnes >= (minimum + 5)) {
         reduction = prixMenu * 0.10;
         prixMenu  = prixMenu - reduction;
         document.getElementById('ligne_reduction').classList.remove('ligne-reduction-hidden');
@@ -112,7 +112,7 @@ form.addEventListener('submit', async function(e) {
     }
 
     if (data.succes) {
-        window.location.href = 'index.html';
+        window.location.href = 'utilisateur/mes-commandes.html';
     }
 });
 

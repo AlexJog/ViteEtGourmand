@@ -17,7 +17,7 @@ async function chargerMenus(params = '') {
     }
 
     grille.innerHTML = menus.map(menu => {
-        const image = menu.image_url || '/assets/images/menus/default.jpg';
+        const image = menu.image_url || '/assets/images/menus/menu-default.jpg';
         const prix  = parseFloat(menu.prix_par_personne).toFixed(2).replace('.', ',');
 
         return `
