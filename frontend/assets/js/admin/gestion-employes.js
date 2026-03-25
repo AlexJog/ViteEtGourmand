@@ -14,8 +14,8 @@ function genererCarteEmploye(employe) {
         : 'N/A';
 
     const boutonAction = employe.actif
-        ? `<button class="btn-secondary" onclick="changerStatut(${employe.utilisateur_id}, 'desactiver')">🔒 Désactiver le compte</button>`
-        : `<button class="btn-laisser-avis" onclick="changerStatut(${employe.utilisateur_id}, 'activer')">🔓 Réactiver le compte</button>`;
+        ? `<button class="btn-secondary" onclick="ouvrirPopup(${employe.utilisateur_id}, 'desactiver')">🔒 Désactiver le compte</button>`
+        : `<button class="btn-laisser-avis" onclick="ouvrirPopup(${employe.utilisateur_id}, 'activer')">🔓 Réactiver le compte</button>`;
 
     return `
         <div class="commande-carte">
@@ -40,10 +40,35 @@ function genererCarteEmploye(employe) {
         </div>`;
 }
 
-async function changerStatut(employe_id, action) {
-    if (!confirm(action === 'desactiver'
-        ? 'Voulez-vous vraiment désactiver ce compte ?'
-        : 'Voulez-vous vraiment réactiver ce compte ?')) return;
+let pendingEmployeId = null;
+let pendingAction    = null;
+
+function ouvrirPopup(employe_id, action) {
+    pendingEmployeId = employe_id;
+    pendingAction    = action;
+
+    const estDesactivation = action === 'desactiver';
+    document.getElementById('popup-titre').textContent   = estDesactivation ? '🔒 Désactiver le compte' : '🔓 Réactiver le compte';
+    document.getElementById('popup-message').textContent = estDesactivation
+        ? 'Voulez-vous vraiment désactiver ce compte employé ?'
+        : 'Voulez-vous vraiment réactiver ce compte employé ?';
+
+    const btnConfirmer = document.getElementById('popup-btn-confirmer');
+    btnConfirmer.style.backgroundColor = estDesactivation ? '#DC3545' : '#28A745';
+
+    document.getElementById('popupStatut').classList.add('active');
+}
+
+function fermerPopup() {
+    document.getElementById('popupStatut').classList.remove('active');
+    pendingEmployeId = null;
+    pendingAction    = null;
+}
+
+async function confirmerChangement() {
+    const employe_id = pendingEmployeId;
+    const action     = pendingAction;
+    fermerPopup();
 
     const formData = new FormData();
     formData.append('employe_id', employe_id);

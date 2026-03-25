@@ -28,6 +28,18 @@
         </section>
     </main>
 
+    <!-- Popup confirmation changement de statut -->
+    <div class="popup-overlay" id="popupStatut">
+        <div class="popup-box">
+            <h3 id="popup-titre"></h3>
+            <p id="popup-message"></p>
+            <div class="popup-actions">
+                <button class="popup-btn popup-btn-annuler" onclick="fermerPopup()">Annuler</button>
+                <button class="popup-btn popup-btn-confirmer" id="popup-btn-confirmer" onclick="confirmerChangement()">Confirmer</button>
+            </div>
+        </div>
+    </div>
+
     <div id="footer"></div>
 
     <script src="../../assets/js/config.js"></script>

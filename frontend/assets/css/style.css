@@ -2314,9 +2314,10 @@ html {
 /* Dashboard actions grid */
 .dashboard-actions {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     margin-top: 30px;
+    max-width: none;
 }
 
 .dashboard-actions .dashboard-card {
@@ -2345,8 +2346,25 @@ html {
     .admin-stats-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .dashboard-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Dashboard employé - grille 2 colonnes */
+.employe-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .employe-dashboard-grid {
         grid-template-columns: 1fr;
     }
 }
