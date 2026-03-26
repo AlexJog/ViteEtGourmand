@@ -1560,12 +1560,14 @@ html {
     display: inline-block;
     font-family: var(--font-primary);
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--white);
     background-color: var(--secondary-color);
-    padding: 12px 30px;
+    padding: 14px 20px;
+    border: none;
     border-radius: 8px;
     text-decoration: none;
+    cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(210, 105, 30, 0.3);
     text-align: center;
@@ -2691,6 +2693,7 @@ html {
 
 .form-buttons > * {
     flex: 1;
+    margin-top: 0;
 }
 
 /* Responsive étoiles */
