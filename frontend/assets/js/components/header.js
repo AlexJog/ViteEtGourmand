@@ -33,7 +33,7 @@ async function chargerHeader() {
             <a href="#" id="btn-deconnexion" class="btn-deconnexion">Déconnexion</a>`;
 
         if (role === 'employe') {
-            subNav.style.display = 'block';
+            subNav.classList.add('sub-nav-active');
             subNavLiens.innerHTML = `
                 <li><a href="/pages/employe/dashboard.html">📊 Dashboard</a></li>
                 <li><a href="/pages/employe/gestion-commandes.html">📦 Commandes</a></li>
@@ -41,7 +41,7 @@ async function chargerHeader() {
         }
 
         if (role === 'admin') {
-            subNav.style.display = 'block';
+            subNav.classList.add('sub-nav-active');
             subNavLiens.innerHTML = `
                 <li><a href="/pages/admin/dashboard.html">📊 Dashboard</a></li>
                 <li><a href="/pages/admin/gestion-menus.html">🍽️ Menus</a></li>

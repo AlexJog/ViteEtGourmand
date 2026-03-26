@@ -300,6 +300,10 @@ html {
     color: white;
 }
 
+.sub-nav-active {
+    display: block;
+}
+
 /* ==== HERO SECTION ==== */
 
 .hero {
