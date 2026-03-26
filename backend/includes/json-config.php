@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
+
 function getMongoCollection(): MongoDB\Collection
 {
     $uri    = getenv('MONGODB_URI');
@@ -23,9 +24,9 @@ function lireStatsJSON(): array
                 'prix_total'       => (float)($doc['prix_total'] ?? 0),
                 'statut'           => (string)($doc['statut'] ?? ''),
                 'menu'             => [
-                    'id'               => (int)($doc['menu']['id'] ?? 0),
-                    'nom'              => (string)($doc['menu']['nom'] ?? ''),
-                    'prix_par_personne'=> (float)($doc['menu']['prix_par_personne'] ?? 0)
+                    'id'                => (int)($doc['menu']['id'] ?? 0),
+                    'nom'               => (string)($doc['menu']['nom'] ?? ''),
+                    'prix_par_personne' => (float)($doc['menu']['prix_par_personne'] ?? 0)
                 ],
                 'mois'  => (int)($doc['mois'] ?? 0),
                 'annee' => (int)($doc['annee'] ?? 0)
@@ -43,7 +44,6 @@ function lireStatsJSON(): array
 function synchroniserStatsJSON($pdo): int
 {
     try {
-        // Récupérer toutes les commandes depuis MySQL
         $sql = "SELECT 
                     c.commande_id,
                     c.date_commande,
@@ -64,11 +64,8 @@ function synchroniserStatsJSON($pdo): int
         $commandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $collection = getMongoCollection();
-
-        // Supprimer tous les anciens documents
         $collection->deleteMany([]);
 
-        // Insérer les nouveaux documents
         $documents = [];
         foreach ($commandes as $commande) {
             $documents[] = [
@@ -105,7 +102,6 @@ function calculerStatsParMenu(array $filtres = []): array
     try {
         $collection = getMongoCollection();
 
-        // Construire le filtre MongoDB
         $filtre = [];
 
         if (!empty($filtres['menu_id'])) {
@@ -120,16 +116,16 @@ function calculerStatsParMenu(array $filtres = []): array
             $filtre['date_commande']['$lte'] = $filtres['date_fin'] . ' 23:59:59';
         }
 
-        // Aggregation MongoDB
+        // (object) force un objet vide {} quand $filtre est vide
         $pipeline = [
-            ['$match' => $filtre],
+            ['$match' => (object)$filtre],
             ['$group' => [
-                '_id'               => '$menu.id',
-                'menu_nom'          => ['$first' => '$menu.nom'],
-                'menu_id'           => ['$first' => '$menu.id'],
-                'nb_commandes'      => ['$sum' => 1],
-                'chiffre_affaires'  => ['$sum' => '$prix_total'],
-                'nb_personnes_total'=> ['$sum' => '$nombre_personnes']
+                '_id'                => '$menu.id',
+                'menu_nom'           => ['$first' => '$menu.nom'],
+                'menu_id'            => ['$first' => '$menu.id'],
+                'nb_commandes'       => ['$sum' => 1],
+                'chiffre_affaires'   => ['$sum' => '$prix_total'],
+                'nb_personnes_total' => ['$sum' => '$nombre_personnes']
             ]],
             ['$sort' => ['nb_commandes' => -1]]
         ];
