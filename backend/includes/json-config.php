@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../vendor/autoload.php';
 function getMongoCollection(): MongoDB\Collection
 {
     $uri    = getenv('MONGODB_URI');
