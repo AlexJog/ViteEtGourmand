@@ -7,7 +7,7 @@ Le projet est séparé en deux parties :
 - **Frontend** : Interface HTML/CSS/JS qui communique avec le backend via des appels `fetch()` vers l'API REST
 - **Backend** : API REST en PHP pur qui gère l'authentification, les menus, les commandes, les avis et les statistiques
 
-**Technologies utilisées :** HTML, CSS, JavaScript, PHP, MySQL, PDO, PHPMailer
+**Technologies utilisées :** HTML, CSS, JavaScript, PHP, MySQL, PDO, PHPMailer, MongoDB
 
 ---
 
@@ -26,6 +26,7 @@ ViteEtGourmand/
 │       ├── config-heroku.php
 │       ├── email-functions.php
 │       ├── json-config.php
+│       ├── mongo-config.php
 │       └── mailer.php
 ├── frontend/
 │   ├── assets/
@@ -37,6 +38,7 @@ ViteEtGourmand/
 ├── vendor/
 ├── composer.json
 ├── composer.lock
+├── php.ini
 ├── Procfile
 └── .gitignore
 ```
@@ -44,8 +46,9 @@ ViteEtGourmand/
 ---
 
 ## 📋 Prérequis
-- PHP (version 8 minimum)
+- PHP (version 8 minimum) avec l'extension `mongodb`
 - MySQL
+- MongoDB Atlas
 - Composer
 - Un navigateur web
 
@@ -78,18 +81,25 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 ```
 
-### 5. Configuration du frontend
+### 5. Configuration MongoDB
+Définissez la variable d'environnement `MONGODB_URI` avec votre URI de connexion :
+```bash
+export MONGODB_URI="mongodb+srv://user:password@cluster.mongodb.net/"
+```
+> Sur Heroku, utilisez `heroku config:set MONGODB_URI="..."`
+
+### 6. Configuration du frontend
 Dans `frontend/assets/js/config.js`, renseignez l'URL de votre backend :
 ```javascript
 const BASE_URL = 'http://localhost:8000';
 ```
 
-### 6. Lancer le backend
+### 7. Lancer le backend
 ```bash
 php -S localhost:8000 -t backend/
 ```
 
-### 7. Lancer le frontend
+### 8. Lancer le frontend
 ```bash
 php -S localhost:3000 -t frontend/
 ```
@@ -116,6 +126,6 @@ Puis accédez à : `http://localhost:3000/pages/index.html`
 ## ⚠️ Remarques
 - Le frontend ne fonctionne pas sans le backend
 - Les emails ne fonctionnent qu'avec les variables SMTP configurées
-- Le dossier `backend/data/` doit exister pour les statistiques
+- Les statistiques nécessitent une connexion MongoDB Atlas
 - Le dossier `frontend/assets/images/menus/` doit exister pour les uploads d'images
 - Modifier `frontend/assets/js/config.js` si le backend tourne sur un port différent
