@@ -18,10 +18,10 @@ if (getenv("JAWSDB_URL")) {
 } else {
     define('BASE_URL', '/ViteEtGourmand/');
 
-    define('DB_HOST', 'localhost');
-    define('DB_NAME', 'vite_gourmand');
-    define('DB_USER', 'root');
-    define('DB_PASS', '');
+    define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+    define('DB_NAME', getenv('DB_NAME') ?: 'vite_gourmand');
+    define('DB_USER', getenv('DB_USER') ?: 'root');
+    define('DB_PASS', getenv('DB_PASS') ?: '');
 
     try {
         $pdo = new PDO(
