@@ -253,7 +253,7 @@ CREATE TABLE `plat` (
 
 LOCK TABLES `plat` WRITE;
 /*!40000 ALTER TABLE `plat` DISABLE KEYS */;
-INSERT INTO `plat` VALUES (1,'Foie gras maison sur toast'),(2,'Chapon rôti aux marrons et légumes de saison'),(3,'Bûche de Noël chocolat-framboise'),(4,'Terrine de saumon aux herbes'),(5,'Magret de canard, gratin dauphinois'),(6,'Tarte au citron meringuée'),(7,'Salade de chèvre chaud'),(8,'Pavé de saumon grillé, écrasé de pommes de terre'),(9,'Crème brûlée vanille'),(10,'Velouté de potimarron'),(11,'Assortiment de tartines gourmandes'),(12,'Fondant au chocolat'),(13,'Houmous et crudités'),(14,'Salade Caesar vegan, croûtons dorés'),(15,'Mousse au chocolat à l\'aquafaba'),(16,'Jambon cru d’exception'),(17,'Filet de bœuf sauce au poivre, légumes fins'),(18,'Pièce montée de choux à la crème');
+INSERT INTO `plat` VALUES (1,'Foie gras maison sur toast'),(2,'Chapon rôti aux marrons et légumes de saison'),(3,'Bûche de Noël chocolat-framboise'),(4,'Terrine de saumon aux herbes'),(5,'Magret de canard, gratin dauphinois'),(6,'Tarte au citron meringuée'),(7,'Salade de chèvre chaud'),(8,'Pavé de saumon grillé, écrasé de pommes de terre'),(9,'Crème brûlée vanille'),(10,'Velouté de potimarron'),(11,'Assortiment de tartines gourmandes'),(12,'Fondant au chocolat'),(13,'Houmous et crudités'),(14,'Salade Caesar vegan, croûtons dorés'),(15,'Mousse au chocolat à l\'aquafaba'),(16,'Jambon cru d\'exception'),(17,'Filet de bœuf sauce au poivre, légumes fins'),(18,'Pièce montée de choux à la crème');
 /*!40000 ALTER TABLE `plat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -393,32 +393,6 @@ LOCK TABLES `utilisateur` WRITE;
 /*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
 INSERT INTO `utilisateur` VALUES (1,'admin@vitegourmand.fr','$2y$12$RntR5Vl98LrU5npi4P.9F.WSuAu6rRIzZfvhBiOP0VSYMG4xBUX8y',NULL,NULL,'Admin','Jose','05 56 00 00 00','Bordeaux','33000','France','1 rue du gourmand',1,1),(2,'employe@vitegourmand.fr','$2y$12$mC9kHn3v/OA9kyF9cc3y9.d3a1W09tsNeubLHEOkMJcAm2gDOHYn2',NULL,NULL,'Employe','Francis','06 12 34 56 32','Bordeaux','33000','France','12 rue du Gourmand',2,1),(14,'client@client.fr','$2y$12$Js/iaemw2vjsH4IewRDy3u8.MbpGhbQ.wnQojPxB1XMNP.Lxav1na',NULL,NULL,'Client','Sabino','08 36 75 75 75','Bordeaux','33000','France','2 rue de Noel',3,1),(16,'annalise@cree.com','$2y$12$rUKMsjq/k7hbVyNHyo7HNuAtNtMXqUbcXHZRlJmPuzpynzdq9PkOu',NULL,NULL,'Durine','Anna-lise','0606060606','','','France','',2,1),(17,'rosine@client.fr','$2y$12$PXoKBHnVoYDEbpZ0GSiMOOMr4Nv0BL6temGVwKMhd5ESrcg2HEPJK',NULL,NULL,'Client','Rosine','06','Bordeaux','33000','France','1 rue du rosier',3,1),(18,'pierre@client.fr','$2y$12$h9MSMwQf/kLGYwitmAoOJ./7doyeNKRWR2z.aJt7YJs5MN.QXbtkq',NULL,NULL,'Juser','Pierre','08 36 65 65 65','Bordeaux','33000','France','12 rue du cailloux',3,1);
 /*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `utilisateur_avis`
---
-
-DROP TABLE IF EXISTS `utilisateur_avis`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `utilisateur_avis` (
-  `utilisateur_id` int NOT NULL,
-  `avis_id` int NOT NULL,
-  PRIMARY KEY (`utilisateur_id`,`avis_id`),
-  KEY `avis_id` (`avis_id`),
-  CONSTRAINT `utilisateur_avis_ibfk_1` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`utilisateur_id`),
-  CONSTRAINT `utilisateur_avis_ibfk_2` FOREIGN KEY (`avis_id`) REFERENCES `avis` (`avis_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `utilisateur_avis`
---
-
-LOCK TABLES `utilisateur_avis` WRITE;
-/*!40000 ALTER TABLE `utilisateur_avis` DISABLE KEYS */;
-/*!40000 ALTER TABLE `utilisateur_avis` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
